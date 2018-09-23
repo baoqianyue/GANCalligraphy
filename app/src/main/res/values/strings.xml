@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AICalligraphy</string>
+    <string name="copybook_image_view_text">字帖库</string>
+    <string name="genbook_image_view_text">字帖生成</string>
+    <string name="genpaint_image_view_text">国画生成</string>
+    <string name="mine_image_view_text">我</string>
+</resources>
