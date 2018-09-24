@@ -19,11 +19,15 @@ public interface CopyBookContract {
     interface IView extends BaseView<IPresenter> {
         void showCopyBookList(ArrayList<CopyBook> list);
 
+        void showMoreBookList(ArrayList<CopyBook> list);
+
         void showError();
     }
 
     interface IPresenter extends BasePresenter {
         void requestData();
+
+        void loadMoreData();
     }
 
 }

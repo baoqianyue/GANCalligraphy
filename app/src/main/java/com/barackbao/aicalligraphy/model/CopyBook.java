@@ -1,5 +1,8 @@
 package com.barackbao.aicalligraphy.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * <pre>
  *     author : baoqianyue
@@ -12,12 +15,21 @@ public class CopyBook {
     private String coverImgUrl;
     private String author;
     private String copyBookName;
-    private String desciption;
+    //详情图片list
+    private ArrayList<String> contentImgUrl;
 
     public CopyBook(String coverImgUrl, String author, String copyBookName) {
         this.coverImgUrl = coverImgUrl;
         this.author = author;
         this.copyBookName = copyBookName;
+    }
+
+    public ArrayList<String> getContentImgUrl() {
+        return contentImgUrl;
+    }
+
+    public void setContentImgUrl(ArrayList<String> contentImgUrl) {
+        this.contentImgUrl = contentImgUrl;
     }
 
     public String getCoverImgUrl() {
@@ -44,11 +56,4 @@ public class CopyBook {
         this.copyBookName = copyBookName;
     }
 
-    public String getDesciption() {
-        return desciption;
-    }
-
-    public void setDesciption(String desciption) {
-        this.desciption = desciption;
-    }
 }

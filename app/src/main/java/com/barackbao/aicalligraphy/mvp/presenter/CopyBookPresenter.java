@@ -37,4 +37,14 @@ public class CopyBookPresenter implements CopyBookContract.IPresenter {
     public void requestData() {
         copyBookView.showCopyBookList(dataList);
     }
+
+    @Override
+    public void loadMoreData() {
+        for (int i = 0; i < 8; i++) {
+            dataList.add(new CopyBook("R.drawable.barack", "颜真卿", "多宝塔碑" + i));
+        }
+        copyBookView.showCopyBookList(dataList);
+    }
+
+
 }

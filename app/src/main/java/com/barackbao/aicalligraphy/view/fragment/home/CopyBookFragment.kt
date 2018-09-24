@@ -1,11 +1,15 @@
 package com.barackbao.aicalligraphy.view.fragment.home
 
+import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.barackbao.aicalligraphy.R
 import com.barackbao.aicalligraphy.adapter.CopyBookAdapter
@@ -13,6 +17,7 @@ import com.barackbao.aicalligraphy.model.CopyBook
 import com.barackbao.aicalligraphy.mvp.contract.CopyBookContract
 import com.barackbao.aicalligraphy.mvp.presenter.CopyBookPresenter
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
 import kotlinx.android.synthetic.main.fragment_copybook_layout.*
 import java.util.ArrayList
 
@@ -24,7 +29,7 @@ import java.util.ArrayList
  *     version: 1.0
  * </pre>
  */
-class CopyBookFragment : BaseFragment(), CopyBookContract.IView {
+class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLayout.OnRefreshListener {
 
 
     lateinit var mContentView: View
@@ -47,8 +52,31 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView {
         copybook_rv.layoutManager = gridLayoutManager
         copybook_rv.overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         copybook_rv.adapter = adapter
+        copybook_swipe_rv.setColorSchemeColors(Color.parseColor("#fb7299"))
+        copybook_swipe_rv.setOnRefreshListener(this)
+        copybook_rv.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            var lastVisibleItem: Int? = 0
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem!! + 1 == adapter?.itemCount) {
+                    copyBookPresenter.loadMoreData()
+                }
+
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+            }
+        })
         adapter.onClick = { copyBook -> Toast.makeText(context, "dianji copybook${copyBook.copyBookName}", Toast.LENGTH_SHORT) }
         copyBookPresenter.requestData()
+    }
+
+    override fun onRefresh() {
+        copybook_swipe_rv.isRefreshing = false
+        copyBookPresenter.loadMoreData()
     }
 
     override fun showCopyBookList(list: ArrayList<CopyBook>?) {
@@ -56,6 +84,13 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView {
             adapter.setData(list)
         }
     }
+
+    override fun showMoreBookList(list: ArrayList<CopyBook>?) {
+        if (null != list) {
+            adapter.setData(list)
+        }
+    }
+
 
     override fun showError() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
