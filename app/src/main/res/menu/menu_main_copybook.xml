@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/copybook_action_search"
+        android:icon="@drawable/comui_actionbar_search"
+        android:title="Search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/copybook_action_collection"
+        android:icon="@drawable/comui_actionbar_collection"
+        android:title="Collection"
+        app:showAsAction="always" />
+</menu>

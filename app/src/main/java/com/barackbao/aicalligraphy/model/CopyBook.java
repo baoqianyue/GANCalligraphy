@@ -7,13 +7,16 @@ import java.util.ArrayList;
  * <pre>
  *     author : baoqianyue
  *     time   : 2018/09/23
- *     desc   :
+ *     desc   : 对应CopyBook表
  *     version: 1.0
  * </pre>
  */
 public class CopyBook {
+    //封面img url
     private String coverImgUrl;
+    //书法家名
     private String author;
+    //碑帖名
     private String copyBookName;
     //详情图片list
     private ArrayList<String> contentImgUrl;

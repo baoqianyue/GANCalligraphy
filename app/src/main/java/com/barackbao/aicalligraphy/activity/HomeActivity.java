@@ -6,9 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.barackbao.aicalligraphy.R;
 import com.barackbao.aicalligraphy.activity.base.BaseActivity;
@@ -33,12 +38,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private GenPaintingFragment mGenPaintFragment;
     private MineFragment mMineFragment;
     private Fragment mCurrentFragment;
+    private Toolbar toolbar;
 
     private RelativeLayout copyBookRl;
     private RelativeLayout genBookRl;
     private RelativeLayout genPaintRl;
     private RelativeLayout mineRl;
 
+    private TextView toolbarTextTv;
     private TextView copyBookView;
     private TextView genBookView;
     private TextView genPaintView;
@@ -56,6 +63,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         initView();
         mCopyBookFragment = new CopyBookFragment();
+        mCurrentFragment = mCopyBookFragment;
         fm = getSupportFragmentManager();
         //设置主页
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -64,6 +72,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
+        toolbar = findViewById(R.id.main_toolbar);
+        toolbarTextTv = findViewById(R.id.toolbar_text_tv);
         copyBookRl = findViewById(R.id.copybook_layout_view);
         copyBookView = findViewById(R.id.copybook_image_view);
         copyBookTv = findViewById(R.id.copybook_image_tv);
@@ -80,6 +90,57 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         genBookRl.setOnClickListener(this);
         genPaintRl.setOnClickListener(this);
         mineRl.setOnClickListener(this);
+        setSupportActionBar(toolbar);
+        toolbarTextTv.setText("字帖库");
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.copybook_action_search:
+                        Toast.makeText(HomeActivity.this, "search", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.copybook_action_collection:
+                        Toast.makeText(HomeActivity.this, "collection", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    /**
+     * 设置toolbar图标
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_copybook, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (mCurrentFragment == mCopyBookFragment) {
+            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
+            menu.findItem(R.id.copybook_action_search).setVisible(true);
+            menu.findItem(R.id.copybook_action_collection).setVisible(true);
+        } else if (mCurrentFragment == mGenBookFragment) {
+            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
+            menu.findItem(R.id.copybook_action_search).setVisible(false);
+            menu.findItem(R.id.copybook_action_collection).setVisible(false);
+        } else if (mCurrentFragment == mGenPaintFragment) {
+            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
+            menu.findItem(R.id.copybook_action_search).setVisible(false);
+            menu.findItem(R.id.copybook_action_collection).setVisible(false);
+        } else {
+            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
+            menu.findItem(R.id.copybook_action_search).setVisible(false);
+            menu.findItem(R.id.copybook_action_collection).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -87,6 +148,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         switch (v.getId()) {
             case R.id.copybook_layout_view:
+                toolbarTextTv.setText("字帖库");
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook_selected);
                 genBookView.setBackgroundResource(R.drawable.comui_tab_genbook);
                 genPaintView.setBackgroundResource(R.drawable.comui_tab_genpaint);
@@ -103,13 +165,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 if (null == mCopyBookFragment) {
                     mCopyBookFragment = new CopyBookFragment();
                     fragmentTransaction.add(R.id.content_layout, mCopyBookFragment);
+                    mCurrentFragment = mCopyBookFragment;
                 } else {
                     mCurrentFragment = mCopyBookFragment;
                     fragmentTransaction.show(mCopyBookFragment);
                 }
+                //显示调用onPrepareOptionMenu()方法，改变toolbar 中 的menu
+                supportInvalidateOptionsMenu();
                 break;
             case R.id.genbook_layout_view:
-
+                toolbarTextTv.setText("生成字帖");
+                toolbar.hideOverflowMenu();
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook);
                 genBookView.setBackgroundResource(R.drawable.comui_tab_genbook_selected);
                 genPaintView.setBackgroundResource(R.drawable.comui_tab_genpaint);
@@ -126,13 +192,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 if (null == mGenBookFragment) {
                     mGenBookFragment = new GenBookFragment();
                     fragmentTransaction.add(R.id.content_layout, mGenBookFragment);
+                    mCurrentFragment = mGenBookFragment;
                 } else {
                     mCurrentFragment = mGenBookFragment;
                     fragmentTransaction.show(mGenBookFragment);
                 }
+                supportInvalidateOptionsMenu();
                 break;
 
             case R.id.genpaint_layout_view:
+                toolbarTextTv.setText("国画生成");
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook);
                 genBookView.setBackgroundResource(R.drawable.comui_tab_genbook);
                 genPaintView.setBackgroundResource(R.drawable.comui_tab_genpaint_selected);
@@ -149,13 +218,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 if (null == mGenPaintFragment) {
                     mGenPaintFragment = new GenPaintingFragment();
                     fragmentTransaction.add(R.id.content_layout, mGenPaintFragment);
+                    mCurrentFragment = mGenPaintFragment;
                 } else {
                     mCurrentFragment = mGenPaintFragment;
                     fragmentTransaction.show(mGenPaintFragment);
                 }
+                supportInvalidateOptionsMenu();
                 break;
 
             case R.id.mine_layout_view:
+                toolbarTextTv.setText("我");
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook);
                 genBookView.setBackgroundResource(R.drawable.comui_tab_genbook);
                 genPaintView.setBackgroundResource(R.drawable.comui_tab_genpaint);
@@ -172,10 +244,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 if (null == mMineFragment) {
                     mMineFragment = new MineFragment();
                     fragmentTransaction.add(R.id.content_layout, mMineFragment);
+                    mCurrentFragment = mMineFragment;
                 } else {
                     mCurrentFragment = mMineFragment;
                     fragmentTransaction.show(mMineFragment);
                 }
+                supportInvalidateOptionsMenu();
                 break;
         }
         fragmentTransaction.commit();
