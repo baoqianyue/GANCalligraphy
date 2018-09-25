@@ -39,5 +39,4 @@ public class CommonOkHttpClient {
         mOkHttpClient = builder.build();
     }
 
-    public static void sendRequest()
 }
