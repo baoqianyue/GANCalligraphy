@@ -10,3 +10,5 @@ package com.barackbao.aicalligraphy.mvp.base;
  */
 public interface BasePresenter {
 }
+
+
