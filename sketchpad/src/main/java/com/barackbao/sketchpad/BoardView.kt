@@ -7,8 +7,13 @@ import android.graphics.Paint
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.barackbao.sketchpad.controller.Controller
+import com.barackbao.sketchpad.utils.HistoryUtil
 import com.barackbao.sketchpad.utils.Logger
+import com.barackbao.sketchpad.view.layer.CacheLayer
 
+/**
+ * the surfaceview and the cache layer
+ */
 class BoardView(context :Context, val mPaint: Paint): SurfaceView(context),SurfaceHolder.Callback {
 
     constructor(context:Context) :this(context, Paint())
@@ -37,7 +42,14 @@ class BoardView(context :Context, val mPaint: Paint): SurfaceView(context),Surfa
      */
     private lateinit var cacheBitmap: Bitmap
     private lateinit var cacheCanvas: Canvas
-    private lateinit var mHistory:
+    private lateinit var mHistory:HistoryUtil
+
+
+    /**
+     * 缓冲绘图层
+     */
+    private val mCacheLayer:CacheLayer? = null
+
 
 
     override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
