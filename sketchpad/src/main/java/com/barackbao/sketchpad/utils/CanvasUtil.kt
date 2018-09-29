@@ -1,9 +1,6 @@
 package com.barackbao.sketchpad.utils
 
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
+import android.graphics.*
 
 object CanvasUtil {
 
@@ -11,9 +8,24 @@ object CanvasUtil {
         this.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
     }
 
-    fun clear(canvas: Canvas){
+    fun clear(canvas: Canvas) {
         canvas.drawPaint(CLEAR_PAINT)
     }
 
+
+    /**
+     * copy a paint
+     */
+    fun paintCopy(paint: Paint): Paint {
+        val mPaint = Paint()
+        mPaint.set(paint)
+        return mPaint
+    }
+
+    fun pathCopy(path: Path): Path {
+        val mPath = Path()
+        mPath.set(path)
+        return mPath
+    }
 
 }

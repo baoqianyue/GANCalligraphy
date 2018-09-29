@@ -7,7 +7,6 @@ import kotlin.math.sin
 
 abstract class Model {
 
-
     companion object {
         var explode = false
     }

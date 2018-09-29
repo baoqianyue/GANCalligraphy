@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import com.barackbao.sketchpad.utils.Logger
+import com.barackbao.sketchpad.view.model.Model
 
 
 /**
@@ -30,6 +31,38 @@ abstract class CacheLayer(val format: Bitmap.Config?,
      * the logger obj
      */
     protected val logger: Logger = Logger("Layer")
+
+    /**
+     * is drawing now
+     */
+    var isDrawing = false
+
+    protected lateinit var mClearRedo: () -> Unit
+
+    protected lateinit var mAddHistory: (Model) -> Unit
+
+    fun prepare(clearRedo: () -> Unit,
+                addHistoryUtil: (Model) -> Unit) {
+        this.mClearRedo = clearRedo
+        this.mAddHistory = mAddHistory
+    }
+
+    private var mDestoryListener: (() -> Unit)? = null
+
+    fun setOnDestoryListener(destoryListener: () -> Unit) {
+        this.mDestoryListener = destoryListener
+    }
+
+    /**
+     *  called when the sufaceview destory
+     */
+    open fun onDestory(){
+        logger.e("onDestory")
+        cacheBitmap.recycle()
+        mDestoryListener?.invoke()
+    }
+
+
 
 
 }
