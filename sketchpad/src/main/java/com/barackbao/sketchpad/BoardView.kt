@@ -15,6 +15,7 @@ import com.barackbao.sketchpad.utils.HistoryUtil
 import com.barackbao.sketchpad.utils.Logger
 import com.barackbao.sketchpad.view.layer.CacheLayer
 import com.barackbao.sketchpad.view.layer.DrawCacheLayer
+import com.barackbao.sketchpad.view.layer.ExplodeCacheLayer
 import com.barackbao.sketchpad.view.model.Model
 import java.text.Format
 
@@ -26,7 +27,10 @@ class BoardView(context: Context, val mPaint: Paint) : SurfaceView(context), Sur
     constructor(context: Context) : this(context, Paint())
 
     init {
-
+        holder.addCallback(this)
+        isFocusable = true
+        isFocusableInTouchMode = true
+        keepScreenOn = true
     }
 
     /**
@@ -104,7 +108,10 @@ class BoardView(context: Context, val mPaint: Paint) : SurfaceView(context), Sur
             Controller.Command.ERASER -> {
                 eraser(event)
             }
+            else -> mCacheLayer?.onTouchEvent(event)
         }
+        invalidate()
+        return true
     }
 
 
@@ -138,6 +145,53 @@ class BoardView(context: Context, val mPaint: Paint) : SurfaceView(context), Sur
                 }
             }
         }
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        canvas.drawBitmap(cacheBitmap, 0f, 0f, null)
+        val layer = mCacheLayer
+        if (layer != null && layer.isDrawing) {
+            canvas.drawBitmap(layer.cacheBitmap, 0f, 0f, null)
+        }
+        invalidate()
+    }
+
+    fun explode() {
+        val layer = mCacheLayer
+        if (layer != null && layer is ExplodeCacheLayer) {
+            layer.onCreate(mHistory)
+        }
+        invalidate()
+    }
+
+    /**
+     * clear the stack, clear the screen later
+     */
+    fun clear() {
+        logger.e("clear")
+        mHistory.clear()
+        invalidate()
+    }
+
+    fun undo() {
+        logger.e("undo")
+        mHistory.undo()
+        invalidate()
+    }
+
+    fun redo() {
+        logger.e("redo")
+        mHistory.redo()
+        invalidate()
+    }
+
+    fun hasUndo() = mHistory.hasUndo()
+    fun hasRedo() = mHistory.hasRedo()
+
+
+    fun toPicture(): Bitmap {
+        logger.e("to picture")
+        return Bitmap.createBitmap(cacheBitmap)
     }
 
 

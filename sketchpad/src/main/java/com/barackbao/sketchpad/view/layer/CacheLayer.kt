@@ -3,6 +3,8 @@ package com.barackbao.sketchpad.view.layer
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.view.MotionEvent
+import com.barackbao.sketchpad.utils.CanvasUtil
 import com.barackbao.sketchpad.utils.Logger
 import com.barackbao.sketchpad.view.model.Model
 
@@ -56,13 +58,17 @@ abstract class CacheLayer(val format: Bitmap.Config?,
     /**
      *  called when the sufaceview destory
      */
-    open fun onDestory(){
+    open fun onDestory() {
         logger.e("onDestory")
         cacheBitmap.recycle()
         mDestoryListener?.invoke()
     }
 
+    fun clearCache() {
+        CanvasUtil.clear(cacheCanvas)
+    }
 
+    abstract fun onTouchEvent(event: MotionEvent)
 
 
 }
