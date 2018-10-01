@@ -5,7 +5,7 @@ import android.graphics.Path
 class ShapeWrapper : Shape() {
 
 
-    val shape: Shape? = null
+    var shape: Shape? = null
 
     override var isFull: Boolean
         get() = super.isFull

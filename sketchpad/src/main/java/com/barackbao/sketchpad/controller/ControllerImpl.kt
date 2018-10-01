@@ -1,15 +1,15 @@
 package com.barackbao.sketchpad.controller
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.view.SurfaceView
 import com.barackbao.sketchpad.BoardView
 import com.barackbao.sketchpad.shape.Shape
+import com.barackbao.sketchpad.shape.ShapeCacheLayer
 import com.barackbao.sketchpad.shape.ShapeWrapper
 import com.barackbao.sketchpad.view.layer.BitmapCacheLayer
 import com.barackbao.sketchpad.view.layer.DrawCacheLayer
+import com.barackbao.sketchpad.view.layer.ExplodeCacheLayer
 
 class ControllerImpl(context: Context) : Controller {
 
@@ -55,41 +55,43 @@ class ControllerImpl(context: Context) : Controller {
     }
 
     override fun drawShape(shape: Shape) {
-
+        mShape.shape = shape
     }
 
     override fun drawBitmap(bitmap: Bitmap) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mBitmap.bitmap = bitmap
     }
 
     override fun undo() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (hasUndo())
+            mView.undo()
     }
 
     override fun hasUndo(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mView.hasUndo()
     }
 
     override fun redo() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (hasRedo())
+            mView.redo()
     }
 
     override fun hasRedo(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mView.hasRedo()
     }
 
     override fun width(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mView.width
     }
 
     override fun height(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mView.height
     }
 
     override fun setCommond(command: Controller.Command) {
         if (mView.command != command) {
-            when(mView.command) {
-                Controller.Command.DISABLE  -> {
+            when (mView.command) {
+                Controller.Command.DISABLE -> {
 
                 }
                 Controller.Command.DARW -> {
@@ -109,30 +111,44 @@ class ControllerImpl(context: Context) : Controller {
                     mView.setCacheLayer(null)
                 }
             }
-            when(command) {
+            when (command) {
                 Controller.Command.DISABLE -> {
 
                 }
                 Controller.Command.DARW -> {
-                    val layer = DrawCacheLayer(mView.getFormat(), width(), height(),mPaint)
+                    val layer = DrawCacheLayer(mView.getFormat(), width(), height(), mPaint)
                     mView.setCacheLayer(layer)
                 }
                 Controller.Command.ERASER -> {
-                    val layer =
+                    mPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+                }
+                Controller.Command.SHAPE -> {
+                    val layer = ShapeCacheLayer(mShape, mView.getFormat(), width(), height(), mPaint)
+                    mView.setCacheLayer(layer)
+                }
+                Controller.Command.EXPLODE -> {
+                    val layer = ExplodeCacheLayer(mView.getFormat(), width(), height())
+                    mView.setCacheLayer(layer)
+                    mView.explode()
+                }
+                Controller.Command.BITMAP -> {
+                    val layer = BitmapCacheLayer(mBitmap, mView.getFormat(), width(), height())
+                    mView.setCacheLayer(layer)
                 }
             }
         }
+        mView.command = command
     }
 
     override fun clear() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mView.clear()
     }
 
     override fun toPicture(): Bitmap {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mView.toPicture()
     }
 
     override fun getView(): SurfaceView {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mView
     }
 }

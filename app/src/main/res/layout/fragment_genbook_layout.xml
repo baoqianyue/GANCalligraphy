@@ -3,10 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/friend_circle_swipe_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="gen book" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/friend_circle_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/like_tv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="+1"
+        android:textColor="#f00"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

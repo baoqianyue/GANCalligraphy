@@ -17,7 +17,6 @@ import com.barackbao.aicalligraphy.model.CopyBook
 import com.barackbao.aicalligraphy.mvp.contract.CopyBookContract
 import com.barackbao.aicalligraphy.mvp.presenter.CopyBookPresenter
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
-import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
 import kotlinx.android.synthetic.main.fragment_copybook_layout.*
 import java.util.ArrayList
 
@@ -70,14 +69,15 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLay
                 lastVisibleItem = layoutManager.findLastVisibleItemPosition()
             }
         })
-        adapter.onClick = { copyBook -> Toast.makeText(context, "dianji copybook${copyBook.copyBookName}", Toast.LENGTH_SHORT) }
         copyBookPresenter.requestData()
+        adapter.onClick = { copyBook -> Toast.makeText(context, "dianji copybook${copyBook.copyBookName}", Toast.LENGTH_SHORT) }
+
     }
 
     override fun onRefresh() {
         copybook_swipe_rv.isRefreshing = false
-        copyBookPresenter.loadMoreData()
-    }
+        copyBookPresenter.requestData()
+}
 
     override fun showCopyBookList(list: ArrayList<CopyBook>?) {
         if (list != null) {
