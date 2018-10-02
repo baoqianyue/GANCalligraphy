@@ -13,7 +13,7 @@ public class FriendsCircleItem {
     //发布日期 not null
     private String releaseDate;
     //发布内容文字描述 can null
-    private String ItemText;
+    private String itemText;
     //发布的图片url can null
     private ArrayList<String> imgUrls;
     //用户发布生成的碑帖 can null，当发布内容不是朋友圈动态时表示发布内容为用户生成的碑帖
@@ -23,10 +23,14 @@ public class FriendsCircleItem {
     //分享数
     private int shareNum;
 
-    public FriendsCircleItem(User user, String releaseDate, String itemText) {
+    public FriendsCircleItem(User user, String releaseDate, String itemText,
+                             ArrayList<String> imgUrls, int likeNum, int shareNum) {
         this.user = user;
         this.releaseDate = releaseDate;
-        ItemText = itemText;
+        this.itemText = itemText;
+        this.imgUrls = imgUrls;
+        this.likeNum = likeNum;
+        this.shareNum = shareNum;
     }
 
     public User getUser() {
@@ -46,11 +50,11 @@ public class FriendsCircleItem {
     }
 
     public String getItemText() {
-        return ItemText;
+        return itemText;
     }
 
     public void setItemText(String itemText) {
-        ItemText = itemText;
+        itemText = itemText;
     }
 
     public ArrayList<String> getImgUrls() {
@@ -84,4 +88,6 @@ public class FriendsCircleItem {
     public void setShareNum(int shareNum) {
         this.shareNum = shareNum;
     }
+
+
 }

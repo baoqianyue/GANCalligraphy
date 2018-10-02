@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:orientation="vertical">
+    android:layout_height="310dp">
 
     <RelativeLayout
+        android:id="@+id/avater_rl"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
@@ -50,102 +48,62 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/item_text_tv"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        tools:text="兰亭集序" />
+        android:layout_height="250dp"
+        android:layout_below="@+id/avater_rl">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/content_img_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:listSelector="@android:color/transparent"
-        android:visibility="gone" />
+        <ImageView
+            android:id="@+id/circle_cover_img"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            tools:background="@drawable/barack" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_333333" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#5000" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true">
-
-            <TextView
-                android:id="@+id/item_share_num_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:drawableLeft="@drawable/selector_btn_share"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                tools:text="45" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true">
-
-            <TextView
-                android:id="@+id/item_comment_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:drawableLeft="@drawable/selector_btn_comment"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                tools:text="12" />
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:gravity="center">
 
-            <CheckBox
-                android:id="@+id/item_like_cb"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:button="@android:color/transparent"
-                android:checked="false"
-                android:drawableLeft="@drawable/selector_btn_like"
-                android:drawablePadding="5dp"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/item_like_num_tv"
-                android:layout_width="wrap_content"
+            <com.barackbao.aicalligraphy.view.widgets.PercentTextView
+                android:id="@+id/item_text_tv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="10" />
+                android:gravity="center_horizontal"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="45px"
+                android:textStyle="bold"
+                tools:text="兰亭集序" />
+
+            <com.barackbao.aicalligraphy.view.widgets.PercentTextView
+                android:id="@+id/item_like_num_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_text_tv"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="40px"
+                tools:text="#点赞：50" />
+
+            <com.barackbao.aicalligraphy.view.widgets.PercentTextView
+                android:id="@+id/item_share_num_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_like_num_tv"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="40px"
+                tools:text="#评论：22" />
+        </RelativeLayout>
 
 
-        </LinearLayout>
+    </FrameLayout>
 
 
-    </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>
