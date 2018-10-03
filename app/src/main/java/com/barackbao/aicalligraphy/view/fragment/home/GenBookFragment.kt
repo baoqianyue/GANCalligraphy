@@ -1,6 +1,5 @@
 package com.barackbao.aicalligraphy.view.fragment.home
 
-import android.app.ActionBar
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -9,16 +8,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
-import android.widget.TextView
-import android.widget.Toast
 
 import com.barackbao.aicalligraphy.R
+import com.barackbao.aicalligraphy.activity.SketchPadActivity
 import com.barackbao.aicalligraphy.adapter.GenBookAdapter
 import com.barackbao.aicalligraphy.model.FriendsCircleItem
 import com.barackbao.aicalligraphy.mvp.contract.GenBookContract
 import com.barackbao.aicalligraphy.mvp.presenter.GenBookPresenter
-import com.barackbao.aicalligraphy.util.DisplayUtil
+import com.barackbao.aicalligraphy.showToast
+import com.barackbao.aicalligraphy.toActivity
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_genbook_layout.*
 
@@ -34,7 +32,6 @@ class GenBookFragment : BaseFragment(), GenBookContract.IView, SwipeRefreshLayou
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         return inflater?.inflate(R.layout.fragment_genbook_layout, null)
     }
 
@@ -57,26 +54,37 @@ class GenBookFragment : BaseFragment(), GenBookContract.IView, SwipeRefreshLayou
 
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val manager = recyclerView!!.layoutManager as LinearLayoutManager
+                val manager = recyclerView?.layoutManager as LinearLayoutManager
                 manager.findLastVisibleItemPosition()
+                if (dy < 0) {
+                    genbook_add_fab_menu.visibility = View.VISIBLE
+                } else if (dy > 0) {
+                    genbook_add_fab_menu.visibility = View.GONE
+                }
             }
         })
-        adapter.onClick = { FriendsCircleItem -> Toast.makeText(context, "Onclick", Toast.LENGTH_SHORT) }
+        adapter.onClick = { FriendsCircleItem -> showToast(FriendsCircleItem.user.userName) }
+
         presenter.requestData()
+        genbook_genbook_fab.setOnClickListener { showToast("click genbook") }
+        genbook_practice_fab.setOnClickListener { activity?.toActivity<SketchPadActivity>() }
+        genbook_test_fab.setOnClickListener { showToast("click test") }
     }
 
     override fun showFriendsContentList(friendsCircleList: ArrayList<FriendsCircleItem>?) {
         if (friendsCircleList != null) {
-            adapter!!.setData(friendsCircleList)
+            adapter.setData(friendsCircleList)
         }
     }
 
     override fun showMoreFriendsContentList(friendsCircleList: ArrayList<FriendsCircleItem>) {
-
+        if (friendsCircleList != null) {
+            adapter.addData(friendsCircleList)
+        }
     }
 
     override fun showError() {
-
+        showToast("网络错误")
     }
 
     override fun onRefresh() {

@@ -4,4 +4,7 @@
     <string name="genbook_image_view_text">字帖生成</string>
     <string name="genpaint_image_view_text">国画生成</string>
     <string name="mine_image_view_text">我</string>
+    <string name="generate_copybook">生成碑帖</string>
+    <string name="practice">练习</string>
+    <string name="test_copybook">辨识字体</string>
 </resources>

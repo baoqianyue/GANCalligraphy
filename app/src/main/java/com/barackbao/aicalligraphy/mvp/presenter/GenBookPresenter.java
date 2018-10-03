@@ -40,6 +40,6 @@ public class GenBookPresenter implements GenBookContract.IPresenter {
 
     @Override
     public void loadMoreData() {
-
+        genBookView.showMoreFriendsContentList(dataList);
     }
 }

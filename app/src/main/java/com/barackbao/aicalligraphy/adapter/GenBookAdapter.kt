@@ -26,6 +26,12 @@ class GenBookAdapter : RecyclerView.Adapter<GenBookAdapter.ViewHolder>() {
     }
 
     fun setData(data: ArrayList<FriendsCircleItem>) {
+        this.data.clear()
+        this.data.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    fun addData(data: ArrayList<FriendsCircleItem>) {
         this.data.addAll(data)
         notifyDataSetChanged()
     }
