@@ -2,6 +2,8 @@ package com.barackbao.sketchpad.controller
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.SurfaceView
 import com.barackbao.sketchpad.BoardView
 import com.barackbao.sketchpad.shape.Shape
@@ -11,7 +13,8 @@ import com.barackbao.sketchpad.view.layer.BitmapCacheLayer
 import com.barackbao.sketchpad.view.layer.DrawCacheLayer
 import com.barackbao.sketchpad.view.layer.ExplodeCacheLayer
 
-class ControllerImpl(context: Context) : Controller {
+class ControllerImpl(val context: Context) : Controller {
+
 
     /**
      * the shape wrapper obj
@@ -52,6 +55,10 @@ class ControllerImpl(context: Context) : Controller {
 
     override fun setBackgroundColor(color: Int) {
         mView.setBackgroundColor(color)
+    }
+
+    override fun setBackground(res: Drawable) {
+        mView.setBackgroundDrawable(res)
     }
 
     override fun drawShape(shape: Shape) {
@@ -132,6 +139,7 @@ class ControllerImpl(context: Context) : Controller {
                     mView.explode()
                 }
                 Controller.Command.BITMAP -> {
+                    Log.e("ControllerIMpl", "width: ${mBitmap.bitmap?.width}")
                     val layer = BitmapCacheLayer(mBitmap, mView.getFormat(), width(), height())
                     mView.setCacheLayer(layer)
                 }

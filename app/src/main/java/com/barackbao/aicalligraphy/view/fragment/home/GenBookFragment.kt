@@ -10,13 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.barackbao.aicalligraphy.R
-import com.barackbao.aicalligraphy.activity.SketchPadActivity
 import com.barackbao.aicalligraphy.adapter.GenBookAdapter
 import com.barackbao.aicalligraphy.model.FriendsCircleItem
 import com.barackbao.aicalligraphy.mvp.contract.GenBookContract
 import com.barackbao.aicalligraphy.mvp.presenter.GenBookPresenter
 import com.barackbao.aicalligraphy.showToast
-import com.barackbao.aicalligraphy.toActivity
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_genbook_layout.*
 
@@ -56,19 +54,16 @@ class GenBookFragment : BaseFragment(), GenBookContract.IView, SwipeRefreshLayou
                 super.onScrolled(recyclerView, dx, dy)
                 val manager = recyclerView?.layoutManager as LinearLayoutManager
                 manager.findLastVisibleItemPosition()
-                if (dy < 0) {
-                    genbook_add_fab_menu.visibility = View.VISIBLE
-                } else if (dy > 0) {
-                    genbook_add_fab_menu.visibility = View.GONE
-                }
+//                if (dy < 0) {
+//                    genbook_add_fab_menu.visibility = View.VISIBLE
+//                } else if (dy > 0) {
+//                    genbook_add_fab_menu.visibility = View.GONE
+//                }
             }
         })
         adapter.onClick = { FriendsCircleItem -> showToast(FriendsCircleItem.user.userName) }
 
         presenter.requestData()
-        genbook_genbook_fab.setOnClickListener { showToast("click genbook") }
-        genbook_practice_fab.setOnClickListener { activity?.toActivity<SketchPadActivity>() }
-        genbook_test_fab.setOnClickListener { showToast("click test") }
     }
 
     override fun showFriendsContentList(friendsCircleList: ArrayList<FriendsCircleItem>?) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -30,6 +31,51 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/main_toolbar" />
 
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/genbook_add_fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nav_linearLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        fab:fab_expandDirection="up"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/genbook_genbook_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/comui_tab_genbook_selected"
+            fab:fab_size="mini"
+            fab:fab_title="@string/generate_copybook" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/genbook_practice_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/comui_pratice"
+            fab:fab_size="mini"
+            fab:fab_title="@string/practice" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/genbook_test_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/comui_test"
+            fab:fab_size="mini"
+            fab:fab_title="@string/test_copybook" />
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
     <LinearLayout
         android:id="@+id/nav_linearLayout"
         android:layout_width="match_parent"
@@ -37,8 +83,8 @@
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         android:orientation="horizontal"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp">
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
 
         <RelativeLayout
             android:id="@+id/copybook_layout_view"

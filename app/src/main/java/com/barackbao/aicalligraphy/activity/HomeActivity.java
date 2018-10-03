@@ -1,5 +1,6 @@
 package com.barackbao.aicalligraphy.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,10 @@ import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenPaintingFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.MineFragment;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import org.jetbrains.anko.ToastsKt;
 
 /**
  * <pre>
@@ -56,6 +61,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private TextView genPaintTv;
     private TextView mineTv;
 
+    private FloatingActionsMenu genBookFabMenu;
+    private FloatingActionButton genBookGenFab;
+    private FloatingActionButton genBookPraFab;
+    private FloatingActionButton genBookTestFab;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +82,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
+        genBookFabMenu = findViewById(R.id.genbook_add_fab_menu);
+        genBookGenFab = findViewById(R.id.genbook_genbook_fab);
+        genBookPraFab = findViewById(R.id.genbook_practice_fab);
+        genBookTestFab = findViewById(R.id.genbook_test_fab);
         toolbar = findViewById(R.id.main_toolbar);
         toolbarTextTv = findViewById(R.id.toolbar_text_tv);
         copyBookRl = findViewById(R.id.copybook_layout_view);
@@ -90,6 +104,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         genBookRl.setOnClickListener(this);
         genPaintRl.setOnClickListener(this);
         mineRl.setOnClickListener(this);
+        genBookGenFab.setOnClickListener(this);
+        genBookPraFab.setOnClickListener(this);
+        genBookTestFab.setOnClickListener(this);
         setSupportActionBar(toolbar);
         toolbarTextTv.setText("字帖库");
 
@@ -147,6 +164,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         switch (v.getId()) {
+            case R.id.genbook_practice_fab:
+                startActivity(new Intent(this, SketchPadActivity.class));
+                genBookFabMenu.collapse();
+                break;
+            case R.id.genbook_genbook_fab:
+                ToastsKt.toast(this, "click genbook");
+                genBookFabMenu.collapse();
+                break;
+            case R.id.genbook_test_fab:
+                ToastsKt.toast(this, "click test");
+                genBookFabMenu.collapse();
+                break;
             case R.id.copybook_layout_view:
                 toolbarTextTv.setText("字帖库");
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook_selected);

@@ -153,7 +153,6 @@ class BoardView(context: Context, val mPaint: Paint) : SurfaceView(context), Sur
         if (layer != null && layer.isDrawing) {
             canvas.drawBitmap(layer.cacheBitmap, 0f, 0f, null)
         }
-        invalidate()
     }
 
     fun explode() {

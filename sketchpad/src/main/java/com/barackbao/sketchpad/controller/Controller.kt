@@ -2,6 +2,7 @@ package com.barackbao.sketchpad.controller
 
 import android.graphics.Bitmap
 import android.graphics.SurfaceTexture
+import android.graphics.drawable.Drawable
 import android.view.SurfaceView
 import com.barackbao.sketchpad.shape.Shape
 
@@ -49,6 +50,8 @@ interface Controller {
     fun setStrokeColor(color: Int)
 
     fun setBackgroundColor(color: Int)
+
+    fun setBackground(res: Drawable)
 
     fun drawShape(shape: Shape)
 

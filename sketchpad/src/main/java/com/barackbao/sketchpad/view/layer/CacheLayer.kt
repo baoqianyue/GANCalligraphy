@@ -22,6 +22,8 @@ abstract class CacheLayer(val format: Bitmap.Config?,
      */
     val cacheBitmap = Bitmap.createBitmap(width, height, format)
 
+    var isMultiTouch = true
+
     /**
      * the canvas obj
      */
@@ -44,9 +46,9 @@ abstract class CacheLayer(val format: Bitmap.Config?,
     protected lateinit var mAddHistory: (Model) -> Unit
 
     fun prepare(clearRedo: () -> Unit,
-                addHistoryUtil: (Model) -> Unit) {
+                addHistory: (Model) -> Unit) {
         this.mClearRedo = clearRedo
-        this.mAddHistory = mAddHistory
+        this.mAddHistory = addHistory
     }
 
     private var mDestoryListener: (() -> Unit)? = null
