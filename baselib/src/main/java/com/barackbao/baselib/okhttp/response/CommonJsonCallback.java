@@ -3,16 +3,19 @@ package com.barackbao.baselib.okhttp.response;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.barackbao.baselib.okhttp.exception.OkHttpException;
 import com.barackbao.baselib.okhttp.listener.DisposeDataHandle;
 import com.barackbao.baselib.okhttp.listener.DisposeDataListener;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -23,10 +26,12 @@ import okhttp3.Response;
  */
 public class CommonJsonCallback implements Callback {
 
+    private static final String TAG = "CommonJsonCallback";
+
     //todo 状态码要和服务器保持一致
-    protected final String RESULT_CODE = "ecode";
-    protected final int RESULT_CODE_VALUE = 0;
-    protected final String ERROR_MSG = "emsg";
+//    protected final String RESULT_CODE = "ecode";
+//    protected final int RESULT_CODE_VALUE = 0;
+//    protected final String ERROR_MSG = "emsg";
     protected final String EMPTY_MSG = "";
 
     //自定义错误类型
@@ -59,7 +64,6 @@ public class CommonJsonCallback implements Callback {
     @Override
     public void onResponse(Call call, final Response response) throws IOException {
         final String result = response.body().string();
-
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -72,43 +76,56 @@ public class CommonJsonCallback implements Callback {
     /**
      * 处理response
      *
-     * @param responseObj
+     * @param result
      */
-    private void handleResponse(Object responseObj) {
+    private void handleResponse(String result) {
 
-        if (null == responseObj && responseObj.toString().trim().equals("")) {
+        if (null == result || result.trim().equals("")) {
             //如果为空，认为网络错误
+            Log.e(TAG, "handleResponse: result is null");
             mListener.onFailure(new OkHttpException(NETWORK_ERROR, EMPTY_MSG));
             return;
         }
-
         try {
-            JSONObject result = new JSONObject(responseObj.toString());
-            if (result.has(RESULT_CODE)) {
-                //从json中获取状态码进行比对
-                if (RESULT_CODE_VALUE == result.getInt(RESULT_CODE)) {
-                    //判断是否返回了实体对应的字节码
-                    if (null == mClass) {
-                        //如果字节码为空，直接将json字符串回调
-                        mListener.onSuccess(responseObj);
-                    } else {
-                        //将json转为实体对象
-                        Gson gson = new Gson();
-                        Object obj = gson.fromJson(String.valueOf(result), mClass);
-                        if (null != obj) {
-                            mListener.onSuccess(obj);
-                        } else {
-                            mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
-                        }
-                    }
+            Object json = new JSONTokener(result).nextValue();
+            if (json instanceof JSONObject) {
+                //判断是否返回了实体对应的字节码
+                if (null == mClass) {
+                    //如果字节码为空，直接将json字符串回调
+                    mListener.onSuccess(json);
                 } else {
-                    //将服务器的异常回调到应用成去处理
-                    //将状态码回调
-                    mListener.onFailure(new OkHttpException(OTHER_ERROR, result.get(RESULT_CODE)));
+                    //将json转为实体对象
+                    Gson gson = new Gson();
+                    Object obj = gson.fromJson(String.valueOf(result), mClass);
+                    if (null != obj) {
+                        mListener.onSuccess(obj);
+                    } else {
+                        Log.e(TAG, "handleResponse: gson convert error");
+                        mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
+                    }
+                }
+            } else if (json instanceof JSONArray) {
+                JSONArray jsonArray = (JSONArray) json;
+                if (null == mClass) {
+                    mListener.onSuccess(jsonArray);
+                } else {
+                    ArrayList<Object> resList = new ArrayList<>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Gson gson = new Gson();
+                        Object obj = gson.fromJson(String.valueOf(jsonArray.get(i)), mClass);
+                        resList.add(obj);
+                    }
+                    if (null == resList || resList.size() == 0) {
+                        mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
+                    } else {
+                        mListener.onSuccess(resList);
+                    }
                 }
             }
+
         } catch (Exception e) {
             //如果到了catch快，每一层都有可能有问题，将异常回调到应用层去
+            Log.e(TAG, "handleResponse: unkown exp");
             mListener.onFailure(new OkHttpException(OTHER_ERROR, e.getMessage()));
             e.printStackTrace();
         }

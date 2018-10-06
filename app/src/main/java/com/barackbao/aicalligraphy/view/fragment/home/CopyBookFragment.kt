@@ -16,6 +16,7 @@ import com.barackbao.aicalligraphy.adapter.CopyBookAdapter
 import com.barackbao.aicalligraphy.model.CopyBook
 import com.barackbao.aicalligraphy.mvp.contract.CopyBookContract
 import com.barackbao.aicalligraphy.mvp.presenter.CopyBookPresenter
+import com.barackbao.aicalligraphy.showToast
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_copybook_layout.*
 import java.util.ArrayList
@@ -77,7 +78,7 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLay
     override fun onRefresh() {
         copybook_swipe_rv.isRefreshing = false
         copyBookPresenter.requestData()
-}
+    }
 
     override fun showCopyBookList(list: ArrayList<CopyBook>?) {
         if (list != null) {
@@ -93,7 +94,7 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLay
 
 
     override fun showError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showToast("网络错误")
     }
 
 }

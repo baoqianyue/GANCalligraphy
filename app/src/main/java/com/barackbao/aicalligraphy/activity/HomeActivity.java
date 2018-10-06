@@ -22,6 +22,7 @@ import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenPaintingFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.MineFragment;
+import com.barackbao.baselib.okhttp.CommonOkHttpClient;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -173,7 +174,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 genBookFabMenu.collapse();
                 break;
             case R.id.genbook_test_fab:
-                ToastsKt.toast(this, "click test");
                 genBookFabMenu.collapse();
                 break;
             case R.id.copybook_layout_view:
