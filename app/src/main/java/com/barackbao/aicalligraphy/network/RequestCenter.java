@@ -6,17 +6,26 @@ import com.barackbao.baselib.okhttp.listener.DisposeDataListener;
 import com.barackbao.baselib.okhttp.request.CommonRequest;
 import com.barackbao.baselib.okhttp.request.RequestParams;
 
+
 /**
  * api
  */
 public class RequestCenter {
 
-    public static void postRequest(String url, RequestParams params, DisposeDataListener listener, Class<?> clazz) {
+    public static void getRequest(String url, RequestParams params, DisposeDataListener listener, Class<?> clazz) {
         CommonOkHttpClient.get(CommonRequest.createGetRequest(url, params), new DisposeDataHandle(listener, clazz));
+    }
+
+    public static void postRequest(String url, RequestParams params, DisposeDataListener listener, Class<?> clazz) {
+        CommonOkHttpClient.post(CommonRequest.createPostRequest(url, params), new DisposeDataHandle(listener, clazz));
     }
 
 
     public static void requestAllCopyBook(DisposeDataListener listener) {
-        RequestCenter.postRequest(HttpConstants.COPYBOOKALL, null, listener, null);
+        RequestCenter.getRequest(HttpConstants.COPYBOOKALL, null, listener, null);
+    }
+
+    public static void register(DisposeDataListener listener, RequestParams params) {
+        RequestCenter.postRequest(HttpConstants.REGISTER, params, listener, null);
     }
 }

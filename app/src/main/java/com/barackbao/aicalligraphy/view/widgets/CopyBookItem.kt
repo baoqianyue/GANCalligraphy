@@ -5,12 +5,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.barackbao.aicalligraphy.R
-import com.barackbao.aicalligraphy.application.GlideApplication
 import com.barackbao.aicalligraphy.model.CopyBook
 import com.bumptech.glide.Glide
-import com.bumptech.glide.GlideBuilder
 import kotlinx.android.synthetic.main.item_copybook.view.*
-import java.util.jar.Attributes
 
 /**
  * <pre>
@@ -34,7 +31,9 @@ class CopyBookItem : FrameLayout {
     fun setData(copyBook: CopyBook) {
         item_copybook_author_tv.text = copyBook.author
         item_copybook_name_tv.text = copyBook.copyBookName
-        Glide.with(context).load(R.drawable.barack).into(item_copybook_img)
+        Glide.with(context)
+                .load(copyBook.copy_book_all.get(0).contentImgUrl)
+                .into(item_copybook_img)
     }
 
 }

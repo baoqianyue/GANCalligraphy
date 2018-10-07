@@ -32,7 +32,7 @@ class CopyBookAdapter : RecyclerView.Adapter<CopyBookAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = data.size
 
-    fun setData(data: ArrayList<CopyBook>) {
+    fun setData(data: List<CopyBook>) {
         this.data.addAll(data)
         notifyDataSetChanged()
     }

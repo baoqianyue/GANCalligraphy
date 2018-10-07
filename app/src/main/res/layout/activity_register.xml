@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <EditText
+        android:id="@+id/username_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:hint="用户名/手机号" />
+
+    <EditText
+        android:id="@+id/password_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="密码"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/password_again_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="再输入一次密码"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/forget_password_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:text="忘记密码?"
+        android:textColor="@android:color/holo_blue_dark" />
+
+    <Button
+        android:id="@+id/registered_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_shape_normal"
+        android:text="注册"
+        android:textColor="@android:color/white" />
+
+
+</LinearLayout>

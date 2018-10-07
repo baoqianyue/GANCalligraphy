@@ -3,6 +3,7 @@
     <color name="colorPrimary">#fb7299</color>
     <color name="colorPrimaryDark">#fb7299</color>
     <color name="colorAccent">#fb7299</color>
+    <color name="colorAccentLow">#f9a2bb</color>
     <color name="color_333333">#333333</color>
     <color name="transparent">#00000000</color>
     <color name="translucent">#44000000</color>

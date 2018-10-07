@@ -55,8 +55,6 @@ public class CommonRequest {
                 builder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
             }
         }
-
-        Log.e(TAG, "createGetRequest: " + builder.substring(0, builder.length() - 1));
         return new Request.Builder().url(builder.substring(0, builder.length() - 1)).get().build();
     }
 
@@ -77,7 +75,7 @@ public class CommonRequest {
                 }
             }
         }
-        return new Request.Builder().url(url).post(builder.build()).build();
+        return new Request.Builder().url(url).put(builder.build()).build();
 
     }
 

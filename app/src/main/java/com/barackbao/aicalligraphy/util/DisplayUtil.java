@@ -9,6 +9,9 @@ public class DisplayUtil {
     private static int mScreenWidth;
     private static int mScreenHeight;
     private static float mDensity;
+    //全屏显示图片
+    public static int EXACT_SCREEN_HEIGHT;
+    public static int EXACT_SCREEN_WIDTH;
 
     public static void init(Context context) {
         DisplayUtil.mContext = context;

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -18,11 +19,11 @@ import android.widget.Toast;
 
 import com.barackbao.aicalligraphy.R;
 import com.barackbao.aicalligraphy.activity.base.BaseActivity;
+import com.barackbao.aicalligraphy.activity.genbook.SketchPadActivity;
 import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenPaintingFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.MineFragment;
-import com.barackbao.baselib.okhttp.CommonOkHttpClient;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -36,7 +37,7 @@ import org.jetbrains.anko.ToastsKt;
  *     version: 1.0
  * </pre>
  */
-public class HomeActivity extends BaseActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FragmentManager fm;
     private CopyBookFragment mCopyBookFragment;
@@ -142,19 +143,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (mCurrentFragment == mCopyBookFragment) {
-            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
             menu.findItem(R.id.copybook_action_search).setVisible(true);
             menu.findItem(R.id.copybook_action_collection).setVisible(true);
         } else if (mCurrentFragment == mGenBookFragment) {
-            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
             menu.findItem(R.id.copybook_action_search).setVisible(false);
             menu.findItem(R.id.copybook_action_collection).setVisible(false);
         } else if (mCurrentFragment == mGenPaintFragment) {
-            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
             menu.findItem(R.id.copybook_action_search).setVisible(false);
             menu.findItem(R.id.copybook_action_collection).setVisible(false);
         } else {
-            Log.i(TAG, "onPrepareOptionsMenu: " + mCurrentFragment.toString());
             menu.findItem(R.id.copybook_action_search).setVisible(false);
             menu.findItem(R.id.copybook_action_collection).setVisible(false);
         }

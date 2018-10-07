@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="7dp">
+
+        <ImageView
+            android:id="@+id/copy_book_cover_img"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop" />
+    </android.support.v7.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/copy_book_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="兰亭集序" />
+
+    <TextView
+        android:id="@+id/copy_book_author_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        tools:text="王羲之" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <Button
+            android:id="@+id/look_more_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape_normal"
+            android:text="@string/look_more"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/collection_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_shape_normal"
+            android:text="@string/collection_copybook"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

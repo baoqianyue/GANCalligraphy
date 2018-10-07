@@ -3,6 +3,10 @@ package com.barackbao.aicalligraphy.activity.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
+
+import com.barackbao.aicalligraphy.R;
 
 /**
  * <pre>
@@ -25,6 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         TAG = getComponentName().getShortClassName();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -33,10 +38,35 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+//        if (null != getToolbar() && isShowBacking()) {
+//            onBackPressed();
+//        }
     }
+
+//
+//    public void setToolBarTitle(CharSequence title) {
+//        if (mToolbarTitleTv != null) {
+//            mToolbarTitleTv.setText(title);
+//        } else {
+//            getToolbar().setTitle(title);
+//            setSupportActionBar(getToolbar());
+//        }
+//    }
 
     @Override
     protected void onStop() {
         super.onStop();
     }
+
+//    public TextView getToolbarTitle() {
+//        return mToolbarTitleTv;
+//    }
+
+//    protected boolean isShowBacking() {
+//        return true;
+//    }
+
+//    public Toolbar getToolbar() {
+//        return findViewById(R.id.toolbar);
+//    }
 }

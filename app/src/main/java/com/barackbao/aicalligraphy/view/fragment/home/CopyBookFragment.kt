@@ -1,5 +1,7 @@
 package com.barackbao.aicalligraphy.view.fragment.home
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -12,11 +14,13 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.barackbao.aicalligraphy.R
+import com.barackbao.aicalligraphy.activity.copybook.ShowImageActivity
 import com.barackbao.aicalligraphy.adapter.CopyBookAdapter
 import com.barackbao.aicalligraphy.model.CopyBook
 import com.barackbao.aicalligraphy.mvp.contract.CopyBookContract
 import com.barackbao.aicalligraphy.mvp.presenter.CopyBookPresenter
 import com.barackbao.aicalligraphy.showToast
+import com.barackbao.aicalligraphy.toActivityWithSerializable
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_copybook_layout.*
 import java.util.ArrayList
@@ -31,7 +35,7 @@ import java.util.ArrayList
  */
 class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLayout.OnRefreshListener {
 
-
+    var mDataList: List<CopyBook>? = null
     lateinit var mContentView: View
 
     val copyBookPresenter: CopyBookPresenter = CopyBookPresenter(this)
@@ -71,7 +75,7 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLay
             }
         })
         copyBookPresenter.requestData()
-        adapter.onClick = { copyBook -> Toast.makeText(context, "dianji copybook${copyBook.copyBookName}", Toast.LENGTH_SHORT) }
+        adapter.onClick = { copyBook -> activity?.toActivityWithSerializable<ShowImageActivity>(copyBook) }
 
     }
 
@@ -80,13 +84,13 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLay
         copyBookPresenter.requestData()
     }
 
-    override fun showCopyBookList(list: ArrayList<CopyBook>?) {
+    override fun showCopyBookList(list: List<CopyBook>?) {
         if (list != null) {
             adapter.setData(list)
         }
     }
 
-    override fun showMoreBookList(list: ArrayList<CopyBook>?) {
+    override fun showMoreBookList(list: List<CopyBook>?) {
         if (null != list) {
             adapter.setData(list)
         }

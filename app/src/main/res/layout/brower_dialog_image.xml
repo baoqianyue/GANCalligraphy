@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="6dp">
+
+    <com.barackbao.aicalligraphy.view.widgets.scrollerimageview.ShowImageViewPager
+        android:id="@+id/show_image_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="8dp" />
+
+    <TextView
+        android:id="@+id/image_index_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white" />
+
+</FrameLayout>

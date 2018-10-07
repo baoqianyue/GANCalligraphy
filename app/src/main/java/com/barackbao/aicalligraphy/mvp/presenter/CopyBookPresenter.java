@@ -10,9 +10,14 @@ import com.barackbao.aicalligraphy.network.RequestCenter;
 import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.baselib.okhttp.listener.DisposeDataListener;
 import com.barackbao.baselib.okhttp.response.CommonJsonCallback;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,26 +41,29 @@ public class CopyBookPresenter implements CopyBookContract.IPresenter {
 
     private CopyBookContract.IView copyBookView;
 
-    private ArrayList<CopyBook> dataList = new ArrayList<>();
+    private List<CopyBook> dataList = new ArrayList<>();
 
 
     public CopyBookPresenter(CopyBookContract.IView view) {
         copyBookView = view;
-        testData();
-    }
-
-    private void testData() {
-        for (int i = 0; i < 8; i++) {
-            dataList.add(new CopyBook("R.drawable.barack", "颜真卿", "多宝塔碑" + i));
-        }
     }
 
     @Override
     public void requestData() {
+
         RequestCenter.requestAllCopyBook(new DisposeDataListener() {
             @Override
             public void onSuccess(Object responseObj) {
-                Log.e(TAG, "onSuccess: " + responseObj.toString());
+                JSONArray resListjson = (JSONArray) responseObj;
+                for (int i = 0; i < resListjson.length(); i++) {
+                    try {
+                        CopyBook copyBook = new Gson().fromJson(resListjson.get(i).toString(), CopyBook.class);
+                        dataList.add(copyBook);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                copyBookView.showCopyBookList(dataList);
             }
 
             @Override
@@ -65,30 +73,10 @@ public class CopyBookPresenter implements CopyBookContract.IPresenter {
             }
         });
 
-//        OkHttpClient client = new OkHttpClient();
-//        Request.Builder builder = new Request.Builder();
-//        final Request request = builder.get().url(HttpConstants.COPYBOOKALL).build();
-//        Call call = client.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                Log.e(TAG, "onFailure: " + e);
-//                copyBookView.showError();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                Log.e(TAG, "onResponse: " + response.toString());
-//            }
-//        });
-        copyBookView.showCopyBookList(dataList);
     }
 
     @Override
     public void loadMoreData() {
-        for (int i = 0; i < 8; i++) {
-            dataList.add(new CopyBook("R.drawable.barack", "颜真卿", "多宝塔碑" + i));
-        }
         copyBookView.showCopyBookList(dataList);
     }
 

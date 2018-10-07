@@ -5,6 +5,7 @@ import com.barackbao.aicalligraphy.mvp.base.BasePresenter;
 import com.barackbao.aicalligraphy.mvp.base.BaseView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -17,9 +18,9 @@ import java.util.ArrayList;
 public interface CopyBookContract {
 
     interface IView extends BaseView<IPresenter> {
-        void showCopyBookList(ArrayList<CopyBook> list);
+        void showCopyBookList(List<CopyBook> list);
 
-        void showMoreBookList(ArrayList<CopyBook> list);
+        void showMoreBookList(List<CopyBook> list);
 
         void showError();
     }

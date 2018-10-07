@@ -8,6 +8,8 @@ public class HttpConstants {
 
     private static final String ROOT_URL = "http://39.105.110.19";
 
-    public static final String COPYBOOKALL = ROOT_URL + "/copybookAll";
+    public static final String COPYBOOKALL = ROOT_URL + "/copybookList";
+
+    public static final String REGISTER = ROOT_URL + "/register/";
 
 }

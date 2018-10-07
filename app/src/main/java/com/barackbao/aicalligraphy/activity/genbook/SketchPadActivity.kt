@@ -1,4 +1,4 @@
-package com.barackbao.aicalligraphy.activity
+package com.barackbao.aicalligraphy.activity.genbook
 
 import android.content.Context
 import android.content.pm.ActivityInfo
@@ -32,6 +32,7 @@ class SketchPadActivity : BaseActivity() {
     private lateinit var mPaintWindow: PopupWindow
     private lateinit var mEraserWindow: PopupWindow
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -49,7 +50,7 @@ class SketchPadActivity : BaseActivity() {
                 controller.setBackground(resource)
             }
         }
-        Glide.with(this).load(R.drawable.practicebg).into(simpleTraget)
+        Glide.with(this).load(R.drawable.practicebgp).into(simpleTraget)
         controller.setStrokeWidth(40f)
         controller.setStrokeColor(Color.BLACK)
         linearLayout {
