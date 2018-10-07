@@ -58,6 +58,7 @@
             android:id="@+id/circle_cover_img"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:scaleType="centerCrop"
             tools:background="@drawable/barack" />
 
         <View

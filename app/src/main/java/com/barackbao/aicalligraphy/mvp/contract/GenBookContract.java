@@ -1,6 +1,6 @@
 package com.barackbao.aicalligraphy.mvp.contract;
 
-import com.barackbao.aicalligraphy.model.FriendsCircleItem;
+import com.barackbao.aicalligraphy.model.FriendsCircle;
 import com.barackbao.aicalligraphy.mvp.base.BasePresenter;
 import com.barackbao.aicalligraphy.mvp.base.BaseView;
 
@@ -10,9 +10,9 @@ public interface GenBookContract {
 
     interface IView extends BaseView<IPresenter> {
 
-        void showFriendsContentList(ArrayList<FriendsCircleItem> friendsCircleList);
+        void showFriendsContentList(ArrayList<FriendsCircle> friendsCircleList);
 
-        void showMoreFriendsContentList(ArrayList<FriendsCircleItem> friendsCircleList);
+        void showMoreFriendsContentList(ArrayList<FriendsCircle> friendsCircleList);
 
         void showError();
 

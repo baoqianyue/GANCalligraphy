@@ -28,4 +28,12 @@ public class RequestCenter {
     public static void register(DisposeDataListener listener, RequestParams params) {
         RequestCenter.postRequest(HttpConstants.REGISTER, params, listener, null);
     }
+
+    public static void requestAllFriendCircle(DisposeDataListener listener) {
+        RequestCenter.getRequest(HttpConstants.FRIENDCIRCLEALL, null, listener, null);
+    }
+
+    public static void requestWordsOutline(DisposeDataListener listener) {
+        RequestCenter.getRequest(HttpConstants.WORDSOUTLINE, null, listener, null);
+    }
 }

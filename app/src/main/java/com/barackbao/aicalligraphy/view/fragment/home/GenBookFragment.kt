@@ -11,7 +11,7 @@ import android.view.ViewGroup
 
 import com.barackbao.aicalligraphy.R
 import com.barackbao.aicalligraphy.adapter.GenBookAdapter
-import com.barackbao.aicalligraphy.model.FriendsCircleItem
+import com.barackbao.aicalligraphy.model.FriendsCircle
 import com.barackbao.aicalligraphy.mvp.contract.GenBookContract
 import com.barackbao.aicalligraphy.mvp.presenter.GenBookPresenter
 import com.barackbao.aicalligraphy.showToast
@@ -30,7 +30,8 @@ class GenBookFragment : BaseFragment(), GenBookContract.IView, SwipeRefreshLayou
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_genbook_layout, null)
+        mContentView = inflater.inflate(R.layout.fragment_genbook_layout, container, false)
+        return mContentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,18 +62,18 @@ class GenBookFragment : BaseFragment(), GenBookContract.IView, SwipeRefreshLayou
 //                }
             }
         })
-        adapter.onClick = { FriendsCircleItem -> showToast(FriendsCircleItem.user.userName) }
+        adapter.onClick = { FriendsCircleItem -> }
 
         presenter.requestData()
     }
 
-    override fun showFriendsContentList(friendsCircleList: ArrayList<FriendsCircleItem>?) {
+    override fun showFriendsContentList(friendsCircleList: ArrayList<FriendsCircle>?) {
         if (friendsCircleList != null) {
             adapter.setData(friendsCircleList)
         }
     }
 
-    override fun showMoreFriendsContentList(friendsCircleList: ArrayList<FriendsCircleItem>) {
+    override fun showMoreFriendsContentList(friendsCircleList: ArrayList<FriendsCircle>) {
         if (friendsCircleList != null) {
             adapter.addData(friendsCircleList)
         }

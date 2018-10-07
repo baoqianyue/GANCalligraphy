@@ -32,4 +32,21 @@ public class DisplayUtil {
     public static int getGridWidth() {
         return (DisplayUtil.mScreenWidth - DisplayUtil.dp2px(10 + 10)) / 3;
     }
+
+    /**
+     * 判断字符串是否全为汉子
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isChinese(String str) {
+        int n = 0;
+        for (int i = 0; i < str.length(); i++) {
+            n = (int) str.charAt(i);
+            if (!(19968 <= n && n < 40869)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

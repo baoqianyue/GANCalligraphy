@@ -12,12 +12,19 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.barackbao.aicalligraphy.R
 import com.barackbao.aicalligraphy.activity.base.BaseActivity
+import com.barackbao.aicalligraphy.model.CopyBook
+import com.barackbao.aicalligraphy.model.WordOutline
+import com.barackbao.aicalligraphy.network.RequestCenter
+import com.barackbao.aicalligraphy.showToast
+import com.barackbao.baselib.okhttp.listener.DisposeDataListener
 import com.barackbao.sketchpad.controller.Controller
 import com.barackbao.sketchpad.factory.BoardFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.gson.Gson
 import org.jetbrains.anko.*
+import org.json.JSONArray
 
 class SketchPadActivity : BaseActivity() {
 
@@ -31,6 +38,8 @@ class SketchPadActivity : BaseActivity() {
     private lateinit var controller: Controller
     private lateinit var mPaintWindow: PopupWindow
     private lateinit var mEraserWindow: PopupWindow
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +59,7 @@ class SketchPadActivity : BaseActivity() {
                 controller.setBackground(resource)
             }
         }
+//        var url = changeWord()
         Glide.with(this).load(R.drawable.practicebgp).into(simpleTraget)
         controller.setStrokeWidth(40f)
         controller.setStrokeColor(Color.BLACK)
@@ -124,19 +134,29 @@ class SketchPadActivity : BaseActivity() {
                     }
                 }
             }
-
         }
-
 
     }
 
 
     private fun changeWord(context: Context) {
-        doAsync {
-            //            var bitmap = Glide.with(context).asBitmap().load(R.drawable.barack).into(500, 500).get()
-            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.barack)
-            runOnUiThread { controller.drawBitmap(bitmap) }
-        }
+
+
+        RequestCenter.requestWordsOutline(object : DisposeDataListener {
+            override fun onSuccess(responseObj: Any?) {
+                var jsonArray = listOf(responseObj.toString() as JSONArray)
+                for (i in jsonArray.indices) {
+                    var wordOutline = Gson().fromJson<WordOutline>(jsonArray[i].toString(), WordOutline::class.java)
+
+                }
+            }
+
+            override fun onFailure(responseObj: Any?) {
+                showToast("网络错误")
+            }
+
+        })
 
     }
 }
+

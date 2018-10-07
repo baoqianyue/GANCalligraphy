@@ -3,14 +3,14 @@ package com.barackbao.aicalligraphy.adapter
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.barackbao.aicalligraphy.model.FriendsCircleItem
+import com.barackbao.aicalligraphy.model.FriendsCircle
 import com.barackbao.aicalligraphy.view.widgets.FriendCircleItem
 
 class GenBookAdapter : RecyclerView.Adapter<GenBookAdapter.ViewHolder>() {
 
 
     val data by lazy {
-        ArrayList<FriendsCircleItem>()
+        ArrayList<FriendsCircle>()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,19 +25,19 @@ class GenBookAdapter : RecyclerView.Adapter<GenBookAdapter.ViewHolder>() {
         holder.itemView.setOnClickListener { onClick?.invoke(data[position]) }
     }
 
-    fun setData(data: ArrayList<FriendsCircleItem>) {
+    fun setData(data: ArrayList<FriendsCircle>) {
         this.data.clear()
         this.data.addAll(data)
         notifyDataSetChanged()
     }
 
-    fun addData(data: ArrayList<FriendsCircleItem>) {
+    fun addData(data: ArrayList<FriendsCircle>) {
         this.data.addAll(data)
         notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
-    var onClick: ((FriendsCircleItem) -> Unit)? = {}
+    var onClick: ((FriendsCircle) -> Unit)? = {}
 
 }

@@ -5,8 +5,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.barackbao.aicalligraphy.R
-import com.barackbao.aicalligraphy.model.FriendsCircleItem
+import com.barackbao.aicalligraphy.model.FriendsCircle
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_friends_circle.view.*
 
 class FriendCircleItem : FrameLayout {
@@ -22,13 +23,21 @@ class FriendCircleItem : FrameLayout {
         View.inflate(context, R.layout.item_friends_circle, this)
     }
 
-    fun setData(data: FriendsCircleItem) {
-        Glide.with(context).load(R.drawable.barack).into(user_avatar_img)
-        Glide.with(context).load(R.drawable.barack).into(circle_cover_img)
-        user_name_tv.text = data?.user.userName
-        release_date_tv.text = data?.releaseDate
-        item_text_tv.text = data?.itemText
-        item_like_num_tv.text = "#点赞：" + data?.likeNum
-        item_share_num_tv.text = "#分享：" + data.shareNum
+    fun setData(data: FriendsCircle) {
+        var options = RequestOptions()
+                .placeholder(R.mipmap.placeholder)
+                .error(R.mipmap.errorimg)
+                .override(45, 45)
+        Glide.with(context).load(data.userAvatar).apply(options).into(user_avatar_img)
+        options = RequestOptions()
+                .placeholder(R.mipmap.placeholder)
+                .error(R.mipmap.errorimg)
+                .override(width, 250)
+        Glide.with(context).load(data.friends_circle_item.get(0).imgUrl).into(circle_cover_img)
+        user_name_tv.text = data.userName
+        release_date_tv.text = data.friends_circle_item.get(0).releaseDate.substring(0, 10)
+        item_text_tv.text = data?.friends_circle_item.get(0).itemText
+        item_like_num_tv.text = "#点赞：" + data.friends_circle_item.get(0).likeNum
+        item_share_num_tv.text = "#分享：" + data.friends_circle_item.get(0).shareNum
     }
 }

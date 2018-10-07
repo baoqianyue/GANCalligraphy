@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.barackbao.aicalligraphy.R;
 import com.barackbao.aicalligraphy.activity.base.BaseActivity;
+import com.barackbao.aicalligraphy.activity.genbook.GenCopybookActivity;
 import com.barackbao.aicalligraphy.activity.genbook.SketchPadActivity;
 import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenBookFragment;
@@ -74,6 +75,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initView();
+        genBookFabMenu.setVisibility(View.GONE);
         mCopyBookFragment = new CopyBookFragment();
         mCurrentFragment = mCopyBookFragment;
         fm = getSupportFragmentManager();
@@ -167,13 +169,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 genBookFabMenu.collapse();
                 break;
             case R.id.genbook_genbook_fab:
-                ToastsKt.toast(this, "click genbook");
+                startActivity(new Intent(this, GenCopybookActivity.class));
                 genBookFabMenu.collapse();
                 break;
             case R.id.genbook_test_fab:
                 genBookFabMenu.collapse();
                 break;
             case R.id.copybook_layout_view:
+                genBookFabMenu.setVisibility(View.GONE);
                 toolbarTextTv.setText("字帖库");
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook_selected);
                 genBookView.setBackgroundResource(R.drawable.comui_tab_genbook);
@@ -200,6 +203,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 supportInvalidateOptionsMenu();
                 break;
             case R.id.genbook_layout_view:
+                genBookFabMenu.setVisibility(View.VISIBLE);
                 toolbarTextTv.setText("生成字帖");
                 toolbar.hideOverflowMenu();
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook);
@@ -227,6 +231,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.genpaint_layout_view:
+                genBookFabMenu.setVisibility(View.GONE);
                 toolbarTextTv.setText("国画生成");
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook);
                 genBookView.setBackgroundResource(R.drawable.comui_tab_genbook);
@@ -253,6 +258,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.mine_layout_view:
+                genBookFabMenu.setVisibility(View.GONE);
                 toolbarTextTv.setText("我");
                 copyBookView.setBackgroundResource(R.drawable.comui_tab_copybook);
                 genBookView.setBackgroundResource(R.drawable.comui_tab_genbook);

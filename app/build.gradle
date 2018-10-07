@@ -32,11 +32,12 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'com.github.chrisbanes.photoview:library:+'
-    implementation "org.jetbrains.anko:anko-sdk19:0.9.1"
-    implementation "org.jetbrains.anko:anko-support-v4:0.9.1"
+    implementation 'org.jetbrains.anko:anko-sdk19:0.9.1'
+    implementation 'org.jetbrains.anko:anko-support-v4:0.9.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':baselib')
     implementation project(':sketchpad')
+    implementation files('/Users/barackbao/Downloads/jsoup-1.11.3.jar')
 }

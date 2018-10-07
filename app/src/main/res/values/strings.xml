@@ -11,4 +11,6 @@
     <string name="collection_copybook">收藏碑帖</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
+    <string name="please_input_poem">请输入要生成的诗词</string>
+    <string name="generate">生成</string>
 </resources>

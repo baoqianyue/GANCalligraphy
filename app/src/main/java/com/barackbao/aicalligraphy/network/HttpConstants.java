@@ -12,4 +12,8 @@ public class HttpConstants {
 
     public static final String REGISTER = ROOT_URL + "/register/";
 
+    public static final String FRIENDCIRCLEALL = ROOT_URL + "/showFriends/";
+
+    public static final String WORDSOUTLINE = ROOT_URL + "/WordsOutline";
+
 }

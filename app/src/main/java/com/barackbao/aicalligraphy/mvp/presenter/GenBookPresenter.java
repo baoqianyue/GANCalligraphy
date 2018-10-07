@@ -1,41 +1,50 @@
 package com.barackbao.aicalligraphy.mvp.presenter;
 
-import com.barackbao.aicalligraphy.R;
-import com.barackbao.aicalligraphy.model.FriendsCircleItem;
-import com.barackbao.aicalligraphy.model.User;
+import com.barackbao.aicalligraphy.model.FriendsCircle;
 import com.barackbao.aicalligraphy.mvp.contract.GenBookContract;
+import com.barackbao.aicalligraphy.network.RequestCenter;
+import com.barackbao.baselib.okhttp.listener.DisposeDataListener;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
 public class GenBookPresenter implements GenBookContract.IPresenter {
 
-    private ArrayList<String> urls = new ArrayList<>();
-
     private GenBookContract.IView genBookView;
 
-    private ArrayList<FriendsCircleItem> dataList = new ArrayList<>();
+    private ArrayList<FriendsCircle> dataList = new ArrayList<>();
 
 
     public GenBookPresenter(GenBookContract.IView view) {
         genBookView = view;
-        testData();
     }
 
-    private void testData() {
-        urls.add(String.valueOf(R.drawable.barack));
-        urls.add(String.valueOf(R.drawable.barack));
-        urls.add(String.valueOf(R.drawable.barack));
-        urls.add(String.valueOf(R.drawable.barack));
-        urls.add(String.valueOf(R.drawable.barack));
-        for (int i = 0; i < 10; i++) {
-            dataList.add(new FriendsCircleItem(new User("barack"), "10月1日",
-                    "我爱祖国", urls, 34, 12));
-        }
-    }
 
     @Override
     public void requestData() {
-        genBookView.showFriendsContentList(dataList);
+        RequestCenter.requestAllFriendCircle(new DisposeDataListener() {
+            @Override
+            public void onSuccess(Object responseObj) {
+                JSONArray jsonArray = (JSONArray) responseObj;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        FriendsCircle item = new Gson().fromJson(jsonArray.get(i).toString(), FriendsCircle.class);
+                        dataList.add(item);
+                        genBookView.showFriendsContentList(dataList);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Object responseObj) {
+                genBookView.showError();
+            }
+        });
     }
 
     @Override
