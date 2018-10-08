@@ -18,6 +18,7 @@ import com.barackbao.aicalligraphy.model.CopyBook;
 import com.barackbao.aicalligraphy.util.DisplayUtil;
 import com.barackbao.aicalligraphy.view.widgets.scrollerimageview.ShowImageDialog;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 
 import java.util.ArrayList;
@@ -65,9 +66,13 @@ public class ShowImageActivity extends AppCompatActivity implements View.OnClick
         collectionBtn = findViewById(R.id.collection_btn);
         lookMoreBtn.setOnClickListener(this);
         collectionBtn.setOnClickListener(this);
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.mipmap.placeholder)
+                .error(R.mipmap.errorimg);
         Glide.with(this).
-                load(data.getCopy_book_all().get(0).getContentImgUrl()).
-                into(copybookCoverImg);
+                load(data.getCopy_book_all().get(0).getContentImgUrl())
+                .apply(options)
+                .into(copybookCoverImg);
         copybookNameTv.setText(data.getCopyBookName());
         copybookAuthorTv.setText(data.getAuthor());
         data.getCopy_book_all().remove(data.getCopy_book_all().get(0));

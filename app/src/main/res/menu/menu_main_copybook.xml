@@ -5,6 +5,7 @@
         android:id="@+id/copybook_action_search"
         android:icon="@drawable/comui_actionbar_search"
         android:title="Search"
+        android:visible="false"
         app:showAsAction="always" />
     <item
         android:id="@+id/copybook_action_collection"

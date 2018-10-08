@@ -6,6 +6,11 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.util.AttributeSet
+import android.util.Log
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.LinearLayout
@@ -19,14 +24,21 @@ import com.barackbao.aicalligraphy.showToast
 import com.barackbao.baselib.okhttp.listener.DisposeDataListener
 import com.barackbao.sketchpad.controller.Controller
 import com.barackbao.sketchpad.factory.BoardFactory
+import com.barackbao.sketchpad.utils.Logger
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import org.jetbrains.anko.*
 import org.json.JSONArray
+import java.util.*
 
 class SketchPadActivity : BaseActivity() {
+
+    val wordsList by lazy {
+        ArrayList<WordOutline>()
+    }
 
 
     companion object {
@@ -40,7 +52,19 @@ class SketchPadActivity : BaseActivity() {
     private lateinit var mEraserWindow: PopupWindow
 
 
-
+//    val hander: Handler = object : Handler() {
+//        override fun handleMessage(msg: Message?) {
+//            if (msg!!.what == 0x11) {
+//                var url = msg.obj
+//                val simpleTraget: SimpleTarget<Drawable> = object : SimpleTarget<Drawable>() {
+//                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+//                        controller.setBackground(resource)
+//                    }
+//                }
+//                Glide.with(this@SketchPadActivity).load(url).into(simpleTraget)
+//            }
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,20 +72,21 @@ class SketchPadActivity : BaseActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         supportActionBar?.hide()
+        requestWordData()
         val factory = BoardFactory.getFactory()
         controller = factory.getController(this)
         val view = controller.getView()
         controller.setCommond(Controller.Command.DARW)
         //设置画笔
-//        changeWord(this)
-        val simpleTraget: SimpleTarget<Drawable> = object : SimpleTarget<Drawable>() {
-            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                controller.setBackground(resource)
-            }
-        }
-//        var url = changeWord()
-        Glide.with(this).load(R.drawable.practicebgp).into(simpleTraget)
-        controller.setStrokeWidth(40f)
+//        Thread(Runnable {
+//            var url = changeWord().wordUrl
+//            var msg = Message.obtain()
+//            msg.what = 0x11
+//            msg.obj = url
+//            hander.sendMessage(msg)
+//        })
+
+        controller.setStrokeWidth(50f)
         controller.setStrokeColor(Color.BLACK)
         linearLayout {
             lparams {
@@ -74,7 +99,7 @@ class SketchPadActivity : BaseActivity() {
                     width = matchParent
                     height = 0
                     weight = 1f
-                    backgroundResource = R.drawable.practicebg
+                    backgroundResource = R.drawable.sketchbg
                 }
                 addView(view)
                 padding = dip(50)
@@ -91,7 +116,14 @@ class SketchPadActivity : BaseActivity() {
                     orientation = LinearLayout.HORIZONTAL
                     textView(text = "换字", theme = R.style.ButtonStyle) {
                         onClick {
-                            toast("换字")
+                            controller.clear()
+                            val simpleTraget: SimpleTarget<Drawable> = object : SimpleTarget<Drawable>() {
+                                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                                    controller.setBackground(resource)
+                                }
+                            }
+                            var url = changeWord().wordUrl
+                            Glide.with(this).load(url).into(simpleTraget)
                         }
                     }
                     textView(text = "画笔", theme = R.style.ButtonStyle) {
@@ -138,20 +170,35 @@ class SketchPadActivity : BaseActivity() {
 
     }
 
+    fun Random.nextInt(range: IntRange): Int {
+        return range.start + nextInt(range.last - range.start)
+    }
 
-    private fun changeWord(context: Context) {
+    private fun changeWord(): WordOutline {
+        return wordsList[Random().nextInt(0 until wordsList.size - 1)]
+    }
 
 
+    private fun requestWordData() {
         RequestCenter.requestWordsOutline(object : DisposeDataListener {
-            override fun onSuccess(responseObj: Any?) {
-                var jsonArray = listOf(responseObj.toString() as JSONArray)
-                for (i in jsonArray.indices) {
-                    var wordOutline = Gson().fromJson<WordOutline>(jsonArray[i].toString(), WordOutline::class.java)
-
+            override fun onSuccess(responseObj: Any) {
+                var jsonArray: JSONArray = responseObj as JSONArray
+                for (i in 0..(jsonArray.length() - 1)) {
+                    var wordOutline: WordOutline = Gson().fromJson<WordOutline>(jsonArray.get(i).toString(), WordOutline::class.java)
+                    wordsList.add(wordOutline)
                 }
+                val simpleTraget: SimpleTarget<Drawable> = object : SimpleTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        controller.setBackground(resource)
+                    }
+                }
+
+                Glide.with(this@SketchPadActivity).load(wordsList.get(0).wordUrl).into(simpleTraget)
+
             }
 
-            override fun onFailure(responseObj: Any?) {
+            override fun onFailure(responseObj: Any) {
+                Log.e("SektchPadActivity", responseObj.toString())
                 showToast("网络错误")
             }
 

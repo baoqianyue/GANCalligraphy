@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.barackbao.aicalligraphy.R
+import com.barackbao.aicalligraphy.mvp.contract.MineContract
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.fragment_mine_layout.*
 
 /**
  * <pre>
@@ -15,7 +18,7 @@ import com.barackbao.aicalligraphy.view.fragment.BaseFragment
  *     version: 1.0
  * </pre>
  */
-class MineFragment : BaseFragment() {
+class MineFragment : BaseFragment(), MineContract.IView {
 
     lateinit var mContentView: View
 
@@ -24,4 +27,26 @@ class MineFragment : BaseFragment() {
         mContentView = inflater.inflate(R.layout.fragment_mine_layout, container, false)
         return mContentView
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Glide.with(this).load(R.drawable.barack).into(my_icon)
+        my_name.text = "Barack"
+
+        collection_cv.setOnClickListener {}
+        my_copybook_cv.setOnClickListener { }
+        practice_cv.setOnClickListener {}
+        settings_cv.setOnClickListener { }
+        quit_btn.setOnClickListener { activity?.finish() }
+    }
+
+
+    override fun showPersonMessage() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

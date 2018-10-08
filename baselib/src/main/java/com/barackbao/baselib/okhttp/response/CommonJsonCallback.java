@@ -107,6 +107,7 @@ public class CommonJsonCallback implements Callback {
             } else if (json instanceof JSONArray) {
                 JSONArray jsonArray = (JSONArray) json;
                 if (null == mClass) {
+                    Log.i(TAG, "handleResponse: " + jsonArray.toString());
                     mListener.onSuccess(jsonArray);
                 } else {
                     ArrayList<Object> resList = new ArrayList<>();
