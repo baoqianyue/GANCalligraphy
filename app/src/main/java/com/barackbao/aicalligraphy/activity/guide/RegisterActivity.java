@@ -71,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                         passwordEdt.setText("");
                         passwordAgainEdt.setText("");
                     } else {
+
                         Map<String, String> map = new HashMap<>();
                         map.put("account",username );
                         map.put("password", password);

@@ -21,6 +21,7 @@ import com.barackbao.aicalligraphy.R;
 import com.barackbao.aicalligraphy.activity.base.BaseActivity;
 import com.barackbao.aicalligraphy.activity.genbook.GenCopybookActivity;
 import com.barackbao.aicalligraphy.activity.genbook.SketchPadActivity;
+import com.barackbao.aicalligraphy.activity.genbook.TestWordActivity;
 import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenPaintingFragment;
@@ -173,6 +174,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 genBookFabMenu.collapse();
                 break;
             case R.id.genbook_test_fab:
+                startActivity(new Intent(this, TestWordActivity.class));
                 genBookFabMenu.collapse();
                 break;
             case R.id.copybook_layout_view:

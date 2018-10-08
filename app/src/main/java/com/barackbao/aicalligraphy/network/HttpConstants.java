@@ -16,4 +16,6 @@ public class HttpConstants {
 
     public static final String WORDSOUTLINE = ROOT_URL + "/WordsOutline";
 
+    public static final String FINDWORDS = ROOT_URL + "/findwords";
+
 }

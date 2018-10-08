@@ -21,6 +21,10 @@ public class DisplayUtil {
         mDensity = dm.density;
     }
 
+    public static int getmScreenWidth() {
+        return mScreenWidth;
+    }
+
     /**
      * 单位转换dp转px
      */

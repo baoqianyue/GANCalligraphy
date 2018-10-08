@@ -19,12 +19,11 @@
             android:layout_centerVertical="true"
             tools:src="@drawable/barack" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/user_avatar_img"
-            android:orientation="vertical">
+            android:layout_toRightOf="@+id/user_avatar_img">
 
             <TextView
                 android:id="@+id/user_name_tv"
@@ -39,12 +38,22 @@
                 android:id="@+id/release_date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name_tv"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="5dp"
                 android:textSize="11sp"
                 tools:text="9月22日" />
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/like_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/selector_btn_like" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

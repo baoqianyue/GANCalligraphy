@@ -17,6 +17,7 @@ import com.barackbao.aicalligraphy.mvp.presenter.GenBookPresenter
 import com.barackbao.aicalligraphy.showToast
 import com.barackbao.aicalligraphy.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_genbook_layout.*
+import kotlinx.android.synthetic.main.item_friends_circle.*
 
 import java.util.ArrayList
 

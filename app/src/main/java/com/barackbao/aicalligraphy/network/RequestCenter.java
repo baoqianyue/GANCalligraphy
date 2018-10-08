@@ -36,4 +36,8 @@ public class RequestCenter {
     public static void requestWordsOutline(DisposeDataListener listener) {
         RequestCenter.getRequest(HttpConstants.WORDSOUTLINE, null, listener, null);
     }
+
+    public static void requestTestWords(DisposeDataListener listener) {
+        RequestCenter.getRequest(HttpConstants.FINDWORDS, null, listener, null);
+    }
 }

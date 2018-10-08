@@ -13,4 +13,9 @@
     <string name="register">注册</string>
     <string name="please_input_poem">请输入要生成的诗词</string>
     <string name="generate">生成</string>
+    <string name="yanzhenqin">颜真卿</string>
+    <string name="liugongquan">柳公权</string>
+    <string name="zhaomengfu">赵孟頫</string>
+    <string name="ouyangxun">欧阳询</string>
+    <string name="commit">提交</string>
 </resources>

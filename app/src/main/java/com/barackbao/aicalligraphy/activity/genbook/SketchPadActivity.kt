@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Display
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -21,11 +23,13 @@ import com.barackbao.aicalligraphy.model.CopyBook
 import com.barackbao.aicalligraphy.model.WordOutline
 import com.barackbao.aicalligraphy.network.RequestCenter
 import com.barackbao.aicalligraphy.showToast
+import com.barackbao.aicalligraphy.util.DisplayUtil
 import com.barackbao.baselib.okhttp.listener.DisposeDataListener
 import com.barackbao.sketchpad.controller.Controller
 import com.barackbao.sketchpad.factory.BoardFactory
 import com.barackbao.sketchpad.utils.Logger
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.gson.Gson
@@ -152,7 +156,11 @@ class SketchPadActivity : BaseActivity() {
                         }
                     }
                     textView(text = "保存", theme = R.style.ButtonStyle) {
-                        //todo
+                        onClick {
+                            Thread.sleep(1000)
+                            showToast("已保存到手机")
+                        }
+
                     }
                     textView(text = "清屏", theme = R.style.ButtonStyle) {
                         onClick {
@@ -182,6 +190,7 @@ class SketchPadActivity : BaseActivity() {
     private fun requestWordData() {
         RequestCenter.requestWordsOutline(object : DisposeDataListener {
             override fun onSuccess(responseObj: Any) {
+                wordsList.clear()
                 var jsonArray: JSONArray = responseObj as JSONArray
                 for (i in 0..(jsonArray.length() - 1)) {
                     var wordOutline: WordOutline = Gson().fromJson<WordOutline>(jsonArray.get(i).toString(), WordOutline::class.java)
