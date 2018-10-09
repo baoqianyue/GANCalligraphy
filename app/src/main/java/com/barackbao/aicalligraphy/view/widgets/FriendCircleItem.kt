@@ -35,8 +35,8 @@ class FriendCircleItem : FrameLayout {
         options = RequestOptions()
                 .placeholder(R.mipmap.placeholder)
                 .error(R.mipmap.errorimg)
-                .override(width, 250)
-        Glide.with(context).load(data.friends_circle_item.get(0).imgUrl).into(circle_cover_img)
+                .override(200, 200)
+        Glide.with(context).load(data.friends_circle_item.get(0).imgUrl).apply(options).into(circle_cover_img)
         user_name_tv.text = data.userName
         release_date_tv.text = data.friends_circle_item.get(0).releaseDate.substring(0, 10)
         item_text_tv.text = data?.friends_circle_item.get(0).itemText

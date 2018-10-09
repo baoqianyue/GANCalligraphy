@@ -22,6 +22,7 @@ import com.barackbao.aicalligraphy.activity.base.BaseActivity;
 import com.barackbao.aicalligraphy.activity.genbook.GenCopybookActivity;
 import com.barackbao.aicalligraphy.activity.genbook.SketchPadActivity;
 import com.barackbao.aicalligraphy.activity.genbook.TestWordActivity;
+import com.barackbao.aicalligraphy.activity.guide.GuideActivity;
 import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenPaintingFragment;
@@ -123,7 +124,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(HomeActivity.this, "search", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.copybook_action_collection:
-                        Toast.makeText(HomeActivity.this, "collection", Toast.LENGTH_SHORT).show();
+                        if (MineFragment.Companion.isLogin()) {
+
+                        } else {
+                            startActivity(new Intent(HomeActivity.this, GuideActivity.class));
+                            Toast.makeText(HomeActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
                         break;
                 }
                 return true;
@@ -178,7 +185,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 genBookFabMenu.collapse();
                 break;
             case R.id.post_friend_fab:
-                Toast.makeText(this, "post", Toast.LENGTH_SHORT).show();
+                if (MineFragment.Companion.isLogin()) {
+
+                } else {
+                    startActivity(new Intent(HomeActivity.this, GuideActivity.class));
+                    Toast.makeText(HomeActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
                 genBookFabMenu.collapse();
                 break;
             case R.id.copybook_layout_view:

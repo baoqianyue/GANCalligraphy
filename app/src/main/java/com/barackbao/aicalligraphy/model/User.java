@@ -8,47 +8,43 @@ import java.util.ArrayList;
 public class User {
 
     //用户名
-    private String userName;
+    private String UserName;
     //密码
-    private String userPassword;
+    private String UserPassword;
     //用户头像
-    private String userAvatar;
+    private String UserAvatar;
     //用户年龄段
-    private int userAge;
-
-    public User(String userName) {
-        this.userName = userName;
-    }
+    private String UserAge;
 
     public String getUserName() {
-        return userName;
+        return UserName;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        UserName = userName;
     }
 
     public String getUserPassword() {
-        return userPassword;
+        return UserPassword;
     }
 
     public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+        UserPassword = userPassword;
     }
 
     public String getUserAvatar() {
-        return userAvatar;
+        return UserAvatar;
     }
 
     public void setUserAvatar(String userAvatar) {
-        this.userAvatar = userAvatar;
+        UserAvatar = userAvatar;
     }
 
-    public int getUserAge() {
-        return userAge;
+    public String getUserAge() {
+        return UserAge;
     }
 
-    public void setUserAge(int userAge) {
-        this.userAge = userAge;
+    public void setUserAge(String userAge) {
+        UserAge = userAge;
     }
 }

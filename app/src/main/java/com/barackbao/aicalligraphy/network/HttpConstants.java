@@ -10,12 +10,14 @@ public class HttpConstants {
 
     public static final String COPYBOOKALL = ROOT_URL + "/copybookList";
 
-    public static final String REGISTER = ROOT_URL + "/register/";
+    public static final String REGISTER = ROOT_URL + "/register/?";
 
-    public static final String FRIENDCIRCLEALL = ROOT_URL + "/showFriends/";
+    public static final String FRIENDCIRCLEALL = ROOT_URL + "/showFriends";
 
     public static final String WORDSOUTLINE = ROOT_URL + "/WordsOutline";
 
     public static final String FINDWORDS = ROOT_URL + "/findwords";
+
+    public static final String LOGIN = ROOT_URL + "/login/?";
 
 }

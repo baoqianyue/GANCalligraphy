@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/guidebg"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/login_rb"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
 
 
+        <EditText
+            android:id="@+id/login_username_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="用户名/电话号码" />
+
+        <EditText
+            android:id="@+id/login_password_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密码"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/login_in_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/button_shape_normal"
+            android:text="登录"
+            android:textColor="@android:color/white" />
+
+
+        <TextView
+            android:id="@+id/login_forget_password_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:text="忘记密码？"
+            android:textColor="@color/colorAccent" />
+
+
+    </LinearLayout>
 
 
 </FrameLayout>

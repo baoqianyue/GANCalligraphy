@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AICalligraphy</string>
+    <string name="app_name">AI书画大师</string>
     <string name="copybook_image_view_text">字帖库</string>
     <string name="genbook_image_view_text">字帖生成</string>
     <string name="genpaint_image_view_text">国画生成</string>
@@ -22,4 +22,5 @@
     <string name="child">书画初学者</string>
     <string name="mid">书画中级者</string>
     <string name="old">书画高手</string>
+    <string name="jump">跳过</string>
 </resources>

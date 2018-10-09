@@ -40,4 +40,8 @@ public class RequestCenter {
     public static void requestTestWords(DisposeDataListener listener) {
         RequestCenter.getRequest(HttpConstants.FINDWORDS, null, listener, null);
     }
+
+    public static void login(DisposeDataListener listener, RequestParams params) {
+        RequestCenter.postRequest(HttpConstants.LOGIN, params, listener, null);
+    }
 }

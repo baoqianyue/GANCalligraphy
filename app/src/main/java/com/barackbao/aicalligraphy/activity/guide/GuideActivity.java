@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.barackbao.aicalligraphy.R;
+import com.barackbao.aicalligraphy.activity.HomeActivity;
 
 public class GuideActivity extends AppCompatActivity {
 
     private Button guideLoginBtn;
     private Button guideRegisterBtn;
+    private Button guideJumpBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class GuideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_guide);
         guideLoginBtn = findViewById(R.id.guide_login_btn);
         guideRegisterBtn = findViewById(R.id.guide_register_btn);
+        guideJumpBtn = findViewById(R.id.guide_jump_btn);
 
         guideLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +35,12 @@ public class GuideActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GuideActivity.this, RegisterActivity.class));
+            }
+        });
+        guideJumpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GuideActivity.this, HomeActivity.class));
             }
         });
     }

@@ -9,6 +9,7 @@ import com.barackbao.baselib.okhttp.exception.OkHttpException;
 import com.barackbao.baselib.okhttp.listener.DisposeDataHandle;
 import com.barackbao.baselib.okhttp.listener.DisposeDataListener;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -123,6 +124,21 @@ public class CommonJsonCallback implements Callback {
                         mListener.onSuccess(resList);
                     }
                 }
+            } else {
+                Log.i(TAG, "handleResponse: " + result);
+                mListener.onSuccess(result);
+//                JSONObject obj = new JSONObject(result);
+//                if (mClass == null) {
+//                    Log.e(TAG, "user back: " + obj.toString());
+//                    mListener.onSuccess(obj);
+//                } else {
+//                    Object object = new Gson().fromJson(result, mClass);
+//                    if (object != null) {
+//                        mListener.onSuccess(object);
+//                    } else {
+//                        mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
+//                    }
+//                }
             }
 
         } catch (Exception e) {

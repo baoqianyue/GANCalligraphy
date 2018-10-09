@@ -27,4 +27,16 @@
         android:textColor="@color/colorAccent"
         android:textSize="16sp" />
 
+    <Button
+        android:id="@+id/guide_jump_btn"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/button_shape_normal"
+        android:text="@string/jump"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+
 </FrameLayout>

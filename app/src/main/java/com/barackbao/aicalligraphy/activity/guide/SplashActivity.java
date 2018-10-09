@@ -23,8 +23,10 @@ public class SplashActivity extends AppCompatActivity {
                         .HANDLER_SPLASH:
                     if (isFirst()) {
                         startActivity(new Intent(SplashActivity.this, GuideActivity.class));
-                    } else {
+                    } else if (null != StaticClass.currentUserName) {
                         startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     }
                     finish();
                     break;

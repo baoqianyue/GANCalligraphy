@@ -53,6 +53,12 @@ public class FriendsCircle {
          * stick : 0
          * likeNum : 19
          * shareNum : 2
+         *
+         *
+         *
+         *
+         *
+         *
          */
 
         private String user;
