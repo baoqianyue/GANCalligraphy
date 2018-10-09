@@ -73,6 +73,17 @@
             fab:fab_title="@string/test_copybook" />
 
 
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/post_friend_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/comui_post_friend"
+            fab:fab_size="mini"
+            fab:fab_title="@string/post_friend" />
+
+
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 

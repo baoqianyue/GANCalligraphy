@@ -92,7 +92,8 @@ public class CommonJsonCallback implements Callback {
                 //判断是否返回了实体对应的字节码
                 if (null == mClass) {
                     //如果字节码为空，直接将json字符串回调
-                    mListener.onSuccess(json);
+                    Log.e(TAG, "register: " + result.toString());
+                    mListener.onSuccess(result);
                 } else {
                     //将json转为实体对象
                     Gson gson = new Gson();

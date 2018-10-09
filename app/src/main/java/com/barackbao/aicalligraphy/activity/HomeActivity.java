@@ -177,6 +177,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, TestWordActivity.class));
                 genBookFabMenu.collapse();
                 break;
+            case R.id.post_friend_fab:
+                Toast.makeText(this, "post", Toast.LENGTH_SHORT).show();
+                genBookFabMenu.collapse();
+                break;
             case R.id.copybook_layout_view:
                 genBookFabMenu.setVisibility(View.GONE);
                 toolbarTextTv.setText("字帖库");

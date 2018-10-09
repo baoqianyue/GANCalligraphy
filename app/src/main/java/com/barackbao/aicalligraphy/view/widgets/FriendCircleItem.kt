@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.item_friends_circle.view.*
 
 class FriendCircleItem : FrameLayout {
 
+    var isLike = false
+
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
 
@@ -40,11 +42,20 @@ class FriendCircleItem : FrameLayout {
         item_text_tv.text = data?.friends_circle_item.get(0).itemText
         item_like_num_tv.text = "#点赞：" + data.friends_circle_item.get(0).likeNum
         item_share_num_tv.text = "#分享：" + data.friends_circle_item.get(0).shareNum
-        like_btn.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-//                item_like_num_tv.text = data.friends_circle_item.get(0).likeNum + 1
+        like_btn.setOnClickListener {
+            var likeNum = (data.friends_circle_item.get(0).likeNum).toInt()
+            if (!isLike) {
+                isLike = true
+                likeNum += 1
+                item_like_num_tv.text = "#点赞：" + likeNum.toString()
+                like_btn.setImageResource(R.drawable.comui_like_selected)
+            } else {
+                isLike = false
+                if (likeNum >= 1) {
+                    item_like_num_tv.text = "#点赞：" + likeNum.toString()
+                    like_btn.setImageResource(R.drawable.comui_like)
+                }
             }
-
-        })
+        }
     }
 }

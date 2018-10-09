@@ -35,15 +35,43 @@
         android:hint="再输入一次密码"
         android:inputType="textPassword" />
 
-    <TextView
-        android:id="@+id/forget_password_tv"
-        android:layout_width="wrap_content"
+    <!--<TextView-->
+    <!--android:id="@+id/forget_password_tv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="right"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:text="忘记密码?"-->
+    <!--android:textColor="@android:color/holo_blue_dark" />-->
+
+    <RadioGroup
+        android:id="@+id/user_age_rdp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:text="忘记密码?"
-        android:textColor="@android:color/holo_blue_dark" />
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/child_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/child" />
+
+        <RadioButton
+            android:id="@+id/mid_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mid" />
+
+        <RadioButton
+            android:id="@+id/old_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/old" />
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/registered_btn"

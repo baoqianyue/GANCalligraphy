@@ -18,4 +18,8 @@
     <string name="zhaomengfu">赵孟頫</string>
     <string name="ouyangxun">欧阳询</string>
     <string name="commit">提交</string>
+    <string name="post_friend">发布动态</string>
+    <string name="child">书画初学者</string>
+    <string name="mid">书画中级者</string>
+    <string name="old">书画高手</string>
 </resources>

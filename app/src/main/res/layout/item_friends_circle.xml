@@ -51,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/selector_btn_like" />
+                android:background="@drawable/comui_like" />
 
         </RelativeLayout>
 

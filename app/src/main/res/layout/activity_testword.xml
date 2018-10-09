@@ -8,18 +8,20 @@
     <include layout="@layout/toolbar_layout" />
 
     <android.support.v7.widget.CardView
+
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/colorAccentLow"
         app:cardCornerRadius="10dp"
         app:cardElevation="7dp">
 
         <ImageView
             android:id="@+id/test_word_img"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:scaleType="fitXY" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
     </android.support.v7.widget.CardView>
 
     <RadioGroup

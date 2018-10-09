@@ -40,4 +40,5 @@ dependencies {
     implementation project(':baselib')
     implementation project(':sketchpad')
     implementation files('/Users/barackbao/Downloads/jsoup-1.11.3.jar')
+    implementation files('/Users/barackbao/Downloads/mpandroidchartlibrary-2-0-8.jar')
 }
