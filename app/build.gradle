@@ -39,6 +39,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':baselib')
     implementation project(':sketchpad')
-    implementation files('/Users/barackbao/Downloads/jsoup-1.11.3.jar')
-    implementation files('/Users/barackbao/Downloads/mpandroidchartlibrary-2-0-8.jar')
+    implementation files('src/libs/mpandroidchartlibrary-2-0-8.jar')
+    implementation files('src/libs/jsoup-1.11.3.jar')
 }
