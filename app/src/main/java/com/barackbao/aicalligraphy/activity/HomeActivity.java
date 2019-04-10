@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.barackbao.aicalligraphy.R;
 import com.barackbao.aicalligraphy.activity.base.BaseActivity;
+import com.barackbao.aicalligraphy.activity.genbook.CameraActivity;
 import com.barackbao.aicalligraphy.activity.genbook.GenCopybookActivity;
 import com.barackbao.aicalligraphy.activity.genbook.SketchPadActivity;
 import com.barackbao.aicalligraphy.activity.genbook.TestWordActivity;
@@ -181,7 +182,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 genBookFabMenu.collapse();
                 break;
             case R.id.genbook_test_fab:
-                startActivity(new Intent(this, TestWordActivity.class));
+                startActivity(new Intent(this, CameraActivity.class));
                 genBookFabMenu.collapse();
                 break;
             case R.id.post_friend_fab:

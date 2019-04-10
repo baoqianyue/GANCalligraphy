@@ -3,6 +3,8 @@
     package="com.barackbao.aicalligraphy">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -14,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.guide.SplashActivity"
+            android:name=".activity.HomeActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,13 +25,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.guide.RegisterActivity" />
-        <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.guide.GuideActivity" />
         <activity android:name=".activity.genbook.GenCopybookActivity" />
         <activity android:name=".activity.genbook.SketchPadActivity" />
         <activity android:name=".activity.copybook.ShowImageActivity" />
         <activity android:name=".activity.guide.LoginActivity" />
         <activity android:name=".activity.genbook.TestWordActivity" />
+        <activity android:name=".activity.genbook.CameraActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.barackbao.aicalligraphy.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
