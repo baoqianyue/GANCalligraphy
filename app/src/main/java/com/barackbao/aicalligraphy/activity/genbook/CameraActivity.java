@@ -4,15 +4,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,12 +20,6 @@ import com.barackbao.aicalligraphy.classifier.KaiClassifier;
 import com.barackbao.aicalligraphy.util.PhotoUtil;
 import com.barackbao.aicalligraphy.util.RequestPermission;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.ObjectKey;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -37,7 +27,7 @@ import java.util.List;
  */
 public class CameraActivity extends AppCompatActivity {
 
-    private static final int REQUEST_TAKE_PHOTO_CODE = 1;
+    private static final int USE_PHOTO = 1001;
     private static final int START_CAMERA = 1002;
     private String cameraImgPath;
 
@@ -53,9 +43,9 @@ public class CameraActivity extends AppCompatActivity {
     private Button startCameraBtn;
     private TextView calligrapherNameTv;
     private TextView probTv;
+    private Button getFromAlbumBtn;
     private Button getEvalBtn;
 
-    private File imgFile;
 
 
     @Override
@@ -119,6 +109,29 @@ public class CameraActivity extends AppCompatActivity {
             calligrapherNameTv.setText("最相似书法家: " + calligrapher);
             probTv.setText("相似程度：" + res.get(1));
 //            Toast.makeText(this, "label： " + res.get(0) + " the prob is：" + res.get(1), Toast.LENGTH_SHORT).show();
+        } else if (requestCode == USE_PHOTO && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                return;
+            }
+            Uri imgUri = data.getData();
+            Glide.with(this).load(imgUri).into(cameraImg);
+            String imgPath = PhotoUtil.get_path_from_URI(this, imgUri);
+            Bitmap bitmap = PhotoUtil.getScaleBitmap(imgPath);
+            List<Object> res;
+            res = classifier.predict(bitmap);
+            String calligrapher;
+            int label = (int) res.get(0);
+            if (label == 0) {
+                calligrapher = "柳公权";
+            } else if (label == 1) {
+                calligrapher = "欧阳询";
+            } else if (label == 2) {
+                calligrapher = "颜真卿";
+            } else {
+                calligrapher = "赵孟頫";
+            }
+            calligrapherNameTv.setText("最相似书法家: " + calligrapher);
+            probTv.setText("相似程度：" + res.get(1));
         }
     }
 
@@ -127,12 +140,21 @@ public class CameraActivity extends AppCompatActivity {
         startCameraBtn = findViewById(R.id.start_camera_btn);
         calligrapherNameTv = findViewById(R.id.name_tv);
         probTv = findViewById(R.id.prob_tv);
+        getFromAlbumBtn = findViewById(R.id.get_from_album);
         getEvalBtn = findViewById(R.id.get_eval_btn);
         startCameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 classifier = new KaiClassifier(getAssets(), MODEL_FILE);
                 cameraImgPath = PhotoUtil.start_camera(CameraActivity.this, START_CAMERA);
+            }
+        });
+
+        getFromAlbumBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                classifier = new KaiClassifier(getAssets(), MODEL_FILE);
+                PhotoUtil.use_photo(CameraActivity.this, USE_PHOTO);
             }
         });
     }

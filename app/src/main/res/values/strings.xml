@@ -25,4 +25,5 @@
     <string name="jump">跳过</string>
     <string name="start_camera">拍照</string>
     <string name="eval_calligrphy">字体评估</string>
+    <string name="get_from_album">从相册选取</string>
 </resources>

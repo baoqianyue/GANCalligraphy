@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="3dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 tools:text="最相似书法家：欧阳询" />
@@ -56,8 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 tools:text="相似程度：50.4%" />
@@ -73,11 +73,23 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="3dp"
         android:background="@drawable/button_shape_normal"
         android:text="@string/start_camera"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/get_from_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/button_shape_normal"
+        android:text="@string/get_from_album"
         android:textColor="@android:color/white" />
 
     <Button

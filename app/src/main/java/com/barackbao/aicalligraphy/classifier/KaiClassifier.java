@@ -70,9 +70,6 @@ public class KaiClassifier {
         List<Object> resList = new ArrayList<>();
         float[] inputData = getPixels(bitmap);
 //        Log.e(TAG, "inputdata[43]: " + inputData[388]);
-        for (int i = 0; i < inputData.length; i++) {
-            Log.d(TAG, "matrix: " + inputData[i]);
-        }
 
         inferenceInterface.feed(inputName, inputData, 1, IMAGE_SIZE, IMAGE_SIZE, 1);
         inferenceInterface.feed("istrain", isTrain);
