@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import com.barackbao.aicalligraphy.classifier.KaiClassifier;
 import com.barackbao.aicalligraphy.util.PhotoUtil;
 import com.barackbao.aicalligraphy.util.RequestPermission;
 import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 /**
@@ -46,6 +48,9 @@ public class CameraActivity extends AppCompatActivity {
     private Button getFromAlbumBtn;
     private Button getEvalBtn;
 
+
+    private String badBitmapPath;
+    private String niceBitmapPath;
 
 
     @Override
@@ -92,6 +97,7 @@ public class CameraActivity extends AppCompatActivity {
         //获取拍照后的图像
         if (requestCode == START_CAMERA && resultCode == Activity.RESULT_OK) {
             Glide.with(this).load(cameraImgPath).into(cameraImg);
+            badBitmapPath = cameraImgPath;
             Bitmap bitmap = PhotoUtil.getScaleBitmap(cameraImgPath);
             List<Object> res;
             res = classifier.predict(bitmap);
@@ -114,9 +120,12 @@ public class CameraActivity extends AppCompatActivity {
                 return;
             }
             Uri imgUri = data.getData();
+            Log.e(TAG, "resultData: " + imgUri);
             Glide.with(this).load(imgUri).into(cameraImg);
             String imgPath = PhotoUtil.get_path_from_URI(this, imgUri);
             Bitmap bitmap = PhotoUtil.getScaleBitmap(imgPath);
+            Log.e(TAG, "photo url: " + imgPath);
+            niceBitmapPath = imgPath;
             List<Object> res;
             res = classifier.predict(bitmap);
             String calligrapher;
@@ -142,6 +151,8 @@ public class CameraActivity extends AppCompatActivity {
         probTv = findViewById(R.id.prob_tv);
         getFromAlbumBtn = findViewById(R.id.get_from_album);
         getEvalBtn = findViewById(R.id.get_eval_btn);
+
+        //拍照
         startCameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,6 +161,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+        //从相册获取
         getFromAlbumBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,6 +169,22 @@ public class CameraActivity extends AppCompatActivity {
                 PhotoUtil.use_photo(CameraActivity.this, USE_PHOTO);
             }
         });
+
+        //评估字体
+        getEvalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CameraActivity.this, EvalActivity.class);
+                if (null != badBitmapPath) {
+                    intent.putExtra("bad_path", badBitmapPath);
+//                    intent.putExtra("nice_path", niceBitmapPath);
+                }
+
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 

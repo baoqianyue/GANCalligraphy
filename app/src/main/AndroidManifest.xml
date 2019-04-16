@@ -32,6 +32,7 @@
         <activity android:name=".activity.guide.LoginActivity" />
         <activity android:name=".activity.genbook.TestWordActivity" />
         <activity android:name=".activity.genbook.CameraActivity" />
+        <activity android:name=".activity.genbook.EvalActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

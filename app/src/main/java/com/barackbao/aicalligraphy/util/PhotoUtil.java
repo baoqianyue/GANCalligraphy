@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -13,10 +14,14 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by BarackBao on 2019/4/6;
@@ -126,6 +131,197 @@ public class PhotoUtil {
         }
         opt.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(filePath, opt);
+    }
+
+    public static List<ImagePiece> split(Bitmap bitmap, int xPiece, int yPiece) {
+        List<ImagePiece> pieces = new ArrayList<>(xPiece * yPiece);
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int pieceWidth = width / 3;
+        int pieceHeight = height / 3;
+
+        for (int i = 0; i < yPiece; i++) {
+            for (int j = 0; j < xPiece; j++) {
+                ImagePiece piece = new ImagePiece();
+                piece.index = j + i * xPiece;
+                int xValue = j * pieceWidth;
+                int yValue = i * pieceHeight;
+
+                Bitmap temp = Bitmap.createBitmap(bitmap, xValue, yValue, pieceWidth, pieceHeight);
+                temp = ThumbnailUtils.extractThumbnail(temp, 8, 8);
+                piece.bitmap = convertGreyImg(temp);
+                pieces.add(piece);
+            }
+        }
+        return pieces;
+    }
+
+
+    /*public static String contrastBitmap(Bitmap a, Bitmap b) {
+
+        //保存图像所有像素个数的数组
+        int[] pixelsOne = new int[a.getWidth() * a.getHeight()];
+        int[] pixelsTwo = new int[b.getWidth() * b.getHeight()];
+
+        a.getPixels(pixelsOne, 0, a.getWidth(), 0, 0, a.getWidth(), a.getHeight());
+        b.getPixels(pixelsTwo, 0, b.getWidth(), 0, 0, b.getWidth(), b.getHeight());
+        int t = 0;
+        int f = 0;
+        //如果图片一个像素大于图片2的像素，就用像素少的作为循环条件。避免报错
+        if (pixelsOne.length >= pixelsTwo.length) {
+            //对每一个像素的RGB值进行比较
+            for (int i = 0; i < pixelsTwo.length; i++) {
+                int clr_one = pixelsOne[i];
+                int clr_two = pixelsTwo[i];
+                //RGB值一样就加一（以便算百分比）
+                if (clr_one == clr_two) {
+                    t++;
+                } else {
+                    f++;
+                }
+            }
+        } else {
+            for (int i = 0; i < pixelsOne.length; i++) {
+                int clr_one = pixelsOne[i];
+                int clr_two = pixelsTwo[i];
+                if (clr_one == clr_two) {
+                    t++;
+                } else {
+                    f++;
+                }
+            }
+
+        }
+
+        return "相似度为：" + myPercent(t, t + f);
+    }
+
+
+    public static String myPercent(int y, int z) {
+        String baifenbi = ""; //接受百分比的值
+        double baiy = y * 1.0;
+        double baiz = z * 1.0;
+        double fen = baiy / baiz;
+        DecimalFormat df1 = new DecimalFormat("00.00%"); //##.00%   百分比格式，后面不足2位的用0补齐
+        baifenbi = df1.format(fen);
+        return baifenbi;
+    }*/
+
+
+    public static int contrastBitmap(Bitmap a, Bitmap b) {
+        a = convertGreyImg(a);
+        b = convertGreyImg(b);
+        int aAvg = getAvg(a);
+        int bAvg = getAvg(b);
+        String aBinary = getBinary(a, aAvg);
+        String bBinary = getBinary(b, bAvg);
+
+        String aHex = binaryString2hexString(aBinary);
+        String bHex = binaryString2hexString(bBinary);
+
+        int diffNum = diff(aHex, bHex);
+        return diffNum;
+    }
+
+    /**
+     * 将彩色图转换为灰度图
+     *
+     * @param img 位图
+     * @return 返回转换好的位图
+     */
+    public static Bitmap convertGreyImg(Bitmap img) {
+        int width = img.getWidth();         //获取位图的宽
+        int height = img.getHeight();       //获取位图的高
+
+        int[] pixels = new int[width * height]; //通过位图的大小创建像素点数组
+
+        img.getPixels(pixels, 0, width, 0, 0, width, height);
+        int alpha = 0xFF << 24;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int original = pixels[width * i + j];
+//                System.out.println("pixels[" + (width * i + j) + "]原色=" + original);
+
+//                if (original == 0) { // 透明转为白色，不需要，因为求平均值后再转换会变黑
+//                    pixels[width * i + j] = -1;
+//                } else {
+                int red = ((original & 0x00FF0000) >> 16);
+                int green = ((original & 0x0000FF00) >> 8);
+                int blue = (original & 0x000000FF);
+
+                int grey = (int) ((float) red * 0.3 + (float) green * 0.59 + (float) blue * 0.11);
+                grey = alpha | (grey << 16) | (grey << 8) | grey;
+                pixels[width * i + j] = grey;
+//                    System.out.println("pixels[" + (width * i + j) + "]grey=" + grey);
+//                }
+
+            }
+        }
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        result.setPixels(pixels, 0, width, 0, 0, width, height);
+        return result;
+    }
+
+    public static int getAvg(Bitmap img) {
+        int width = img.getWidth();
+        int height = img.getHeight();
+        int[] pixels = new int[width * height];
+        img.getPixels(pixels, 0, width, 0, 0, width, height);
+
+        int avgPixel = 0;
+        for (int pixel : pixels) {
+            avgPixel += pixel;
+        }
+        return avgPixel / pixels.length;
+    }
+
+    public static String getBinary(Bitmap img, int average) {
+        StringBuilder sb = new StringBuilder();
+
+        int width = img.getWidth();
+        int height = img.getHeight();
+        int[] pixels = new int[width * height];
+
+        img.getPixels(pixels, 0, width, 0, 0, width, height);
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int original = pixels[width * i + j];
+                if (original >= average) {
+                    pixels[width * i + j] = 1;
+                } else {
+                    pixels[width * i + j] = 0;
+                }
+                sb.append(pixels[width * i + j]);
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String binaryString2hexString(String bString) {
+        if (bString == null || bString.equals("") || bString.length() % 8 != 0)
+            return null;
+        StringBuilder sb = new StringBuilder();
+        int iTmp;
+        for (int i = 0; i < bString.length(); i += 4) {
+            iTmp = 0;
+            for (int j = 0; j < 4; j++) {
+                iTmp += Integer.parseInt(bString.substring(i + j, i + j + 1)) << (4 - j - 1);
+            }
+            sb.append(Integer.toHexString(iTmp));
+        }
+        return sb.toString();
+    }
+
+    public static int diff(String s1, String s2) {
+        char[] s1s = s1.toCharArray();
+        char[] s2s = s2.toCharArray();
+        int diffNum = 0;
+        for (int i = 0; i < s1s.length; i++) {
+            if (s1s[i] != s2s[i]) {
+                diffNum++;
+            }
+        }
+        return diffNum;
     }
 }
 
