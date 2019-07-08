@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.guide.GuideActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.guide.RegisterActivity" />
-        <activity android:name=".activity.guide.GuideActivity" />
+        <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.genbook.GenCopybookActivity" />
         <activity android:name=".activity.genbook.SketchPadActivity" />
         <activity android:name=".activity.copybook.ShowImageActivity" />

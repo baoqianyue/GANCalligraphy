@@ -69,6 +69,8 @@ public class CameraActivity extends AppCompatActivity {
             toolbarTitleTv.setText("字体评测");
         }
 
+
+        //申请拍照权限
         RequestPermission.requestPermissions(this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.CAMERA},
@@ -89,7 +91,6 @@ public class CameraActivity extends AppCompatActivity {
         initView();
     }
 
-    //申请拍照权限
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

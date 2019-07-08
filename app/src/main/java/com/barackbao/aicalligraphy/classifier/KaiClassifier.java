@@ -26,6 +26,7 @@ public class KaiClassifier {
     private static final String probName = "probability";
     private static final String outputName = "predict";
     //图片维度
+
     private static final int IMAGE_SIZE = 64;
 
     TensorFlowInferenceInterface inferenceInterface;
