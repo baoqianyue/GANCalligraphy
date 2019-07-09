@@ -75,6 +75,7 @@ class CopyBookFragment : BaseFragment(), CopyBookContract.IView, SwipeRefreshLay
             }
         })
         copyBookPresenter.requestData()
+        // 跳转到具体的碑帖页面
         adapter.onClick = { copyBook -> activity?.toActivityWithSerializable<ShowImageActivity>(copyBook) }
 
     }

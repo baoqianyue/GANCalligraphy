@@ -73,6 +73,7 @@ public class ShowImageActivity extends AppCompatActivity implements View.OnClick
                 load(data.getCopy_book_all().get(0).getContentImgUrl())
                 .apply(options)
                 .into(copybookCoverImg);
+        // 碑帖名称
         copybookNameTv.setText(data.getCopyBookName());
         copybookAuthorTv.setText(data.getAuthor());
         data.getCopy_book_all().remove(data.getCopy_book_all().get(0));
@@ -107,11 +108,15 @@ public class ShowImageActivity extends AppCompatActivity implements View.OnClick
                 new ShowImageDialog(ShowImageActivity.this, dataImgs).show();
                 break;
             case R.id.collection_btn:
+
+                // todo
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+
                 Toast.makeText(this, "已收藏", Toast.LENGTH_SHORT).show();
         }
     }

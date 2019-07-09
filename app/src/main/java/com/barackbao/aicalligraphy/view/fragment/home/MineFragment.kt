@@ -1,5 +1,6 @@
 package com.barackbao.aicalligraphy.view.fragment.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,6 @@ class MineFragment : BaseFragment(), MineContract.IView {
 
         collection_cv.setOnClickListener {
             if (isLogin()) {
-
             } else {
                 showToast("请先登录")
                 activity?.toActivity<GuideActivity>()

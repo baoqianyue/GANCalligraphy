@@ -36,26 +36,31 @@ class FriendCircleItem : FrameLayout {
                 .placeholder(R.mipmap.placeholder)
                 .error(R.mipmap.errorimg)
                 .override(250, 250)
-        Glide.with(context).load(data.friends_circle_item.get(0).imgUrl).apply(options).into(circle_cover_img)
-        user_name_tv.text = data.userName
-        release_date_tv.text = data.friends_circle_item.get(0).releaseDate.substring(0, 10)
-        item_text_tv.text = data?.friends_circle_item.get(0).itemText
-        item_like_num_tv.text = "#点赞：" + data.friends_circle_item.get(0).likeNum
-        item_share_num_tv.text = "#分享：" + data.friends_circle_item.get(0).shareNum
-        like_btn.setOnClickListener {
-            var likeNum = (data.friends_circle_item.get(0).likeNum).toInt()
-            if (!isLike) {
-                isLike = true
-                likeNum += 1
-                item_like_num_tv.text = "#点赞：" + likeNum.toString()
-                like_btn.setImageResource(R.drawable.comui_like_selected)
-            } else {
-                isLike = false
-                if (likeNum >= 1) {
+        // 数据越界
+        if (data.friends_circle_item.size > 0) {
+            Glide.with(context).load(data.friends_circle_item.get(0).imgUrl).apply(options).into(circle_cover_img)
+            user_name_tv.text = data.userName
+            release_date_tv.text = data.friends_circle_item.get(0).releaseDate.substring(0, 10)
+            item_text_tv.text = data?.friends_circle_item.get(0).itemText
+            item_like_num_tv.text = "#点赞：" + data.friends_circle_item.get(0).likeNum
+            item_share_num_tv.text = "#分享：" + data.friends_circle_item.get(0).shareNum
+            like_btn.setOnClickListener {
+                var likeNum = (data.friends_circle_item.get(0).likeNum).toInt()
+                if (!isLike) {
+                    isLike = true
+                    likeNum += 1
                     item_like_num_tv.text = "#点赞：" + likeNum.toString()
-                    like_btn.setImageResource(R.drawable.comui_like)
+                    like_btn.setImageResource(R.drawable.comui_like_selected)
+                } else {
+                    isLike = false
+                    if (likeNum >= 1) {
+                        item_like_num_tv.text = "#点赞：" + likeNum.toString()
+                        like_btn.setImageResource(R.drawable.comui_like)
+                    }
                 }
             }
+
         }
+
     }
 }
