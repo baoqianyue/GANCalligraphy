@@ -65,6 +65,7 @@ public class EvalActivity extends AppCompatActivity {
         }
 
         badWordImgPath = getIntent().getStringExtra("bad_path");
+        Log.e(TAG, "badwordimgpath: " + badWordImgPath);
 //        niceWordImgPath = getIntent().getStringExtra("nice_path");
         niceWordImgPath = "/storage/emulated/0/hw/IMG_20190413_122640.png";
 
@@ -81,6 +82,8 @@ public class EvalActivity extends AppCompatActivity {
         niceWordLabelTv.showBadge(true);
         badBitmap = PhotoUtil.getScaleBitmap(badWordImgPath);
         niceBitmap = PhotoUtil.getScaleBitmap(niceWordImgPath);
+        Log.e(TAG, "badimg: " + badBitmap.toString() + "niceimg: " + niceBitmap);
+
         badBitmaps = PhotoUtil.split(badBitmap, 3, 3);
         niceBitmaps = PhotoUtil.split(niceBitmap, 3, 3);
 

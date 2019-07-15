@@ -20,4 +20,9 @@ public class HttpConstants {
 
     public static final String LOGIN = ROOT_URL + "/login/?";
 
+    private static final String DL_ROOT_URL = "http://39.106.68.169:6000";
+
+    public static final String STYLE =  DL_ROOT_URL + "/styleTransfer";
+
+
 }

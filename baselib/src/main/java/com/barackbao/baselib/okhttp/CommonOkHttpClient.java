@@ -18,7 +18,7 @@ import okhttp3.Request;
  */
 public class CommonOkHttpClient {
 
-    private static final int TIME_OUT = 30;//超时参数
+    private static final int TIME_OUT = 60;//超时参数
     public static OkHttpClient mOkHttpClient;
 
     //为所有的okhttpclient配置相同参数

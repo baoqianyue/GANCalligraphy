@@ -177,6 +177,7 @@ public class CameraActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(CameraActivity.this, EvalActivity.class);
                 if (null != badBitmapPath) {
+                    Log.e(TAG, "badBitmappath: " + badBitmapPath);
                     intent.putExtra("bad_path", badBitmapPath);
 //                    intent.putExtra("nice_path", niceBitmapPath);
                 }

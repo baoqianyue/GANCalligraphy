@@ -24,6 +24,7 @@ import com.barackbao.aicalligraphy.activity.genbook.GenCopybookActivity;
 import com.barackbao.aicalligraphy.activity.genbook.SketchPadActivity;
 import com.barackbao.aicalligraphy.activity.genbook.TestWordActivity;
 import com.barackbao.aicalligraphy.activity.guide.GuideActivity;
+import com.barackbao.aicalligraphy.activity.style.StyleTransferActivity;
 import com.barackbao.aicalligraphy.view.fragment.home.CopyBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenBookFragment;
 import com.barackbao.aicalligraphy.view.fragment.home.GenPaintingFragment;
@@ -71,6 +72,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton genBookGenFab;
     private FloatingActionButton genBookPraFab;
     private FloatingActionButton genBookTestFab;
+    // 风格迁移按钮
+    private FloatingActionButton genBookstyleFab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +110,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mineRl = findViewById(R.id.mine_layout_view);
         mineView = findViewById(R.id.mine_image_view);
         mineTv = findViewById(R.id.mine_image_tv);
+        genBookstyleFab = findViewById(R.id.genbook_style_fab);
         copyBookRl.setOnClickListener(this);
         genBookRl.setOnClickListener(this);
         genPaintRl.setOnClickListener(this);
@@ -114,6 +118,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         genBookGenFab.setOnClickListener(this);
         genBookPraFab.setOnClickListener(this);
         genBookTestFab.setOnClickListener(this);
+        genBookstyleFab.setOnClickListener(this);
         setSupportActionBar(toolbar);
         toolbarTextTv.setText("字帖库");
 
@@ -185,14 +190,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, CameraActivity.class));
                 genBookFabMenu.collapse();
                 break;
-            case R.id.post_friend_fab:
-                if (MineFragment.Companion.isLogin()) {
+            case R.id.genbook_style_fab:
+               /* if (MineFragment.Companion.isLogin()) {
 
                 } else {
                     startActivity(new Intent(HomeActivity.this, GuideActivity.class));
                     Toast.makeText(HomeActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
                     finish();
-                }
+                }*/
+                startActivity(new Intent(this, StyleTransferActivity.class));
                 genBookFabMenu.collapse();
                 break;
             case R.id.copybook_layout_view:
