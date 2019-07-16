@@ -24,5 +24,5 @@ public class HttpConstants {
 
     public static final String STYLE =  DL_ROOT_URL + "/styleTransfer";
 
-
+    public static final String GENCALL = DL_ROOT_URL + "/gen_call";
 }

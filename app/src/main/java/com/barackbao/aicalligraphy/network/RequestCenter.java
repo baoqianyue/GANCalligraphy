@@ -45,5 +45,9 @@ public class RequestCenter {
         RequestCenter.postRequest(HttpConstants.LOGIN, params, listener, null);
     }
 
+    public static void gen_calligraphy(DisposeDataListener listener, RequestParams params){
+        RequestCenter.getRequest(HttpConstants.GENCALL, params, listener, null);
+    }
+
 
 }
