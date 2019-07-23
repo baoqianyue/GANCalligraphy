@@ -61,6 +61,8 @@ public class PhotoUtil {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         // set photo quality, min is 0, max is 1
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0);
+        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 0);
+        intent.putExtra(MediaStore.Images.Media.SIZE, 0);
         activity.startActivityForResult(intent, requestCode);
         // return image absolute path
         return outputImage.getAbsolutePath();

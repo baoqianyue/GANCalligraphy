@@ -67,7 +67,7 @@ public class EvalActivity extends AppCompatActivity {
         badWordImgPath = getIntent().getStringExtra("bad_path");
         Log.e(TAG, "badwordimgpath: " + badWordImgPath);
 //        niceWordImgPath = getIntent().getStringExtra("nice_path");
-        niceWordImgPath = "/storage/emulated/0/hw/IMG_20190413_122640.png";
+        niceWordImgPath = "/storage/emulated/0/Tencent/QQ_Images/-107c51cf4bfe041.jpg";
 
         initViews();
     }
@@ -123,7 +123,7 @@ public class EvalActivity extends AppCompatActivity {
                 .setPosition(BubbleDialog.Position.LEFT)
                 .setTransParentBackground()
                 .calBar(true);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
     }
 
@@ -140,7 +140,7 @@ public class EvalActivity extends AppCompatActivity {
                 .calBar(true);
 
 
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
     }
 
@@ -155,7 +155,7 @@ public class EvalActivity extends AppCompatActivity {
                 .setTransParentBackground()
                 .calBar(true);
 
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
     }
 
@@ -171,7 +171,7 @@ public class EvalActivity extends AppCompatActivity {
                 .setPosition(BubbleDialog.Position.LEFT)
                 .setOffsetX(120)
                 .calBar(true);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
     }
 
@@ -186,7 +186,7 @@ public class EvalActivity extends AppCompatActivity {
                 .setTransParentBackground()
                 .setOffsetY(50)
                 .calBar(true);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
     }
 

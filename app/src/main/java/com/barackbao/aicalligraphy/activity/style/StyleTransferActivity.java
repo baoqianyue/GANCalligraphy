@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,14 @@ public class StyleTransferActivity extends AppCompatActivity {
     private ImageView cameraImg;
     private Button startCameraBtn;
     private Button getFromAlbumBtn;
+
+    private RadioButton shanshuiRb;
+    private RadioButton xingyeRb;
+    private RadioButton qinglvRb;
+
+    private static final String TYPE_STYLE_SHANSHUI = "shanshui";
+    private static final String TYPE_STYLE_XINGYE = "xingye";
+    private static final String TYPE_STYLE_QINGLV = "shanshui1";
 
     private static final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(1000, TimeUnit.MINUTES)
@@ -113,13 +122,28 @@ public class StyleTransferActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        boolean isShanshuiChecked = shanshuiRb.isChecked();
+        boolean isXingyeChecked = xingyeRb.isChecked();
+        boolean isQinglvChecked = qinglvRb.isChecked();
+        String styleType = null;
+        if (isShanshuiChecked) {
+            styleType = TYPE_STYLE_SHANSHUI;
+        } else if (isXingyeChecked) {
+            styleType = TYPE_STYLE_XINGYE;
+        } else if (isQinglvChecked) {
+            styleType = TYPE_STYLE_QINGLV;
+        }
+
+
         //获取拍照后的图像
         if (requestCode == START_CAMERA && resultCode == Activity.RESULT_OK) {
             Glide.with(this).load(cameraImgPath).into(cameraImg);
             boolean imgExist = imgIsExit(cameraImgPath);
             if (imgExist) {
 //                Toast.makeText(this, "开始上传" + preImg.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                upload(preImg);
+                // todo
+
+                upload(preImg, styleType);
                 try {
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -142,14 +166,14 @@ public class StyleTransferActivity extends AppCompatActivity {
             boolean imgExist = imgIsExit(imgPath);
             if (imgExist) {
 //                Toast.makeText(this, "开始上传" + preImg.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-                upload(preImg);
+                upload(preImg, styleType);
             }
 
 
         }
     }
 
-    private void upload(File img) {
+    private void upload(File img, String type) {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -161,6 +185,7 @@ public class StyleTransferActivity extends AppCompatActivity {
 
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder();
         bodyBuilder.setType(MultipartBody.FORM)
+                .addFormDataPart("styleType", type)
                 .addFormDataPart("file", img.getName(), RequestBody.create(MediaType.parse("image/*"), img));
 //        bodyBuilder.addFormDataPart("test", img.getName(), RequestBody.create(null, img));
         MultipartBody build = bodyBuilder.build();
@@ -242,6 +267,9 @@ public class StyleTransferActivity extends AppCompatActivity {
         startCameraBtn = findViewById(R.id.style_start_camera_btn);
         getFromAlbumBtn = findViewById(R.id.style_get_from_album);
         uploadPb = findViewById(R.id.upload_progress);
+        shanshuiRb = findViewById(R.id.shanshui_rb);
+        xingyeRb = findViewById(R.id.xingye_rb);
+        qinglvRb = findViewById(R.id.qinglv_rb);
 
         //拍照
         startCameraBtn.setOnClickListener(new View.OnClickListener() {
