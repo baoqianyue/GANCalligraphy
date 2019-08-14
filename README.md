@@ -3,8 +3,7 @@
 <img src="https://github.com/shentibeitaokongle/GANCalligraphy/blob/master/app/src/main/ic_launcher-web.png?raw=true" width="150" height="150"/>
 
 # AI书画大师 
- 
-An application, combine with Children side port and Parents side port, which let children take good care of their parents and parents can use smart phone to detect their heart rate.
+
 
 </div>
 
